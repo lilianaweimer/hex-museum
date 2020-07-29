@@ -5,14 +5,15 @@ import { NavLink } from 'react-router-dom';
 
 const Home = (props) => {
   const styles = {backgroundColor: props.todaysColor.color}
-
+  console.log(props.todaysColor)
   return (
     <div className="home" style={styles}>
       <section className='home-nav-section'>
         <h2>today's color: {props.todaysColor.color}</h2>  
         <NavLink 
           to={`/gallery/${props.todaysColor.id}`} 
-          id={props.todaysColor.id} 
+          id={props.todaysColor}
+          onClick={() => props.fetchArt(props.todaysColor)} 
           className='home-nav'
           style={styles}>
             view today's gallery

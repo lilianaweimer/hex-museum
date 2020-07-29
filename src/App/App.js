@@ -7,7 +7,7 @@ import Colors from '../Colors/Colors';
 
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -40,16 +40,17 @@ class App extends React.Component {
     ))
   }
 
-  loadGallery = (routerProps) => {
-    this.fetchArt(routerProps);
-    return <Gallery art={this.state.art} />
+  loadGallery = () => {
+    return Object.keys(this.state.art).length ? <Gallery art={this.state.art} /> : <Redirect to='/'/>;
   }
 
-  fetchArt = (routerProps) => {
-    let color = routerProps.match.params.id;
+  fetchArt = (color) => {
+    console.log(color)
+    this.setState({ isLoading: true })
     getArt(color, this.state.apikey)
     .then(data => this.setState({
       art: data,
+      isLoading: false,
     }))
     .catch(err => console.error(err))
   }
@@ -74,7 +75,7 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.art);
+    console.log(this.state.art);
     if (this.state.isLoading) {
       return (<p className='loading'>Loading...</p>)
     } else if (this.state.error) {
@@ -89,10 +90,11 @@ class App extends React.Component {
               fetchAllColors={this.fetchAllColors}
             />
           </Route>
-          <Route path='/gallery/:id' render={(routerProps) => this.loadGallery(routerProps)}/>
+          <Route path='/gallery/:id' render={(event) => this.loadGallery(event)}/>
           <Route exact path='/colors'>
             <Colors 
               colors={this.state.colors.records}
+              fetchArt={this.fetchArt}
             />
           </Route>
         </Switch>

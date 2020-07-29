@@ -11,9 +11,11 @@ const Colors = (props) => {
           {props.colors.sort((a, b) => b.hex - a.hex).map(color => {
             return (
               <NavLink 
-                to={`/gallery/${color.id}`} 
+                to={`/gallery/${color.id}`}
+                onClick={() => props.fetchArt(color.id)} 
                 className='color-nav' 
                 key={color.id}
+                id={color.hex}
                 style={{backgroundColor: color.hex}}
               >
                 <p className='color-info'>{color.name}</p>
