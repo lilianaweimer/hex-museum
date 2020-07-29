@@ -5,6 +5,8 @@ import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 
+import { fetchTodaysColor } from '../apiCalls';
+
 import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
@@ -15,21 +17,28 @@ class App extends React.Component {
       today: new Date(),
       isLoading: true,
       todaysColor: {},
-      art: false,
+      art: {},
       colors: {},
       error: null,
     }
   }
 
   componentDidMount() {
-    let day = this.getDayOfYear()
-    fetch(`https://api.harvardartmuseums.org/spectrum/${day}?apikey=${this.state.apikey}`)
-    .then(response => response.json())
-    .then(data => this.setState({
+    // let day = this.getDayOfYear()
+    fetchTodaysColor(this.getDayOfYear(), this.state.apikey)
+    .then(
+      (data) => this.setState({
       todaysColor: data,
       isLoading: false
-    }))
-    .catch(err => console.error(err))
+    },
+    (error) => {
+      console.error(error)
+      this.setState({
+        isLoaded: true,
+        error: error
+      })
+    }
+    ))
   }
 
   fetchArt = () => {
@@ -62,13 +71,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.todaysColor);
     console.log(this.state.art);
     if (this.state.isLoading) {
       return (<p className='loading'>Loading...</p>)
     } else if (this.state.error) {
-      return <Error />
-    } else {
+      return <p>{this.state.error}</p>
+    } else if (!this.state.isLoading && !this.state.error) {
       return (
         <Switch>
           <Route exact path='/'>
@@ -78,9 +86,7 @@ class App extends React.Component {
               fetchAllColors={this.fetchAllColors}
             />
           </Route>
-          <Route path='/gallery/:color'>
-            <Gallery />
-          </Route>
+          <Route path='/gallery/:color' render={routeProps => this.fetchArt(routeProps)}/>
           <Route exact path='/colors'>
             <Colors 
               colors={this.state.colors.records}
