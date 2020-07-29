@@ -5,7 +5,7 @@ import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 
-import { fetchTodaysColor } from '../apiCalls';
+import { fetchTodaysColor, getAllColors } from '../apiCalls';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -24,7 +24,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // let day = this.getDayOfYear()
     fetchTodaysColor(this.getDayOfYear(), this.state.apikey)
     .then(
       (data) => this.setState({
@@ -41,19 +40,19 @@ class App extends React.Component {
     ))
   }
 
-  fetchArt = () => {
-    fetch(`https://api.harvardartmuseums.org/object?color:${this.state.todaysColor}&hasImage=1&apikey=${this.state.apikey}`)
-    .then(response => response.json())
-    .then(data => this.setState({
-      art: data,
-    }))
-    .catch(err => console.error(err))
+  fetchArt = (routeProps) => {
+    console.log(routeProps)
+    // fetch(`https://api.harvardartmuseums.org/object?color:${this.state.todaysColor}&hasImage=1&apikey=${this.state.apikey}`)
+    // .then(response => response.json())
+    // .then(data => this.setState({
+    //   art: data,
+    // }))
+    // .catch(err => console.error(err))
   }
 
   fetchAllColors = () => {
     this.setState({ isLoading: true })
-    fetch(`https://api.harvardartmuseums.org/color?size=147&apikey=${this.state.apikey}`)
-      .then(response => response.json())
+    getAllColors(this.state.apikey)
       .then(data => this.setState({
         isLoading: false,
         colors: data

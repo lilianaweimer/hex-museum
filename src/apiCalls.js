@@ -1,4 +1,9 @@
-export const fetchTodaysColor = (day, apiKey) => {
-  return fetch(`https://api.harvardartmuseums.org/spectrum/${day}?apikey=${apiKey}`)
+export const fetchTodaysColor = (day, apikey) => {
+  return fetch(`https://api.harvardartmuseums.org/spectrum/${day}?apikey=${apikey}`)
     .then(response => response.json())
+}
+
+export const getAllColors = (apikey) => {
+  return fetch(`https://api.harvardartmuseums.org/color?size=147&apikey=${apikey}`)
+  .then(response => response.json())
 }
