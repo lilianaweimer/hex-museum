@@ -4,6 +4,7 @@ import moods from './_moodsHelper';
 import Home from '../Home/Home';
 import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
+import Colors from '../Colors/Colors';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -41,7 +42,7 @@ class App extends React.Component {
   }
 
   fetchAllColors = () => {
-    
+
   }
 
   getDayOfYear = () => {
@@ -68,6 +69,9 @@ class App extends React.Component {
           </Route>
           <Route path='/gallery/:color'>
             <Gallery />
+          </Route>
+          <Route path='/colors'>
+            <Colors />
           </Route>
         </Switch>
       );
