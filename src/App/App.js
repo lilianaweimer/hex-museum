@@ -1,5 +1,11 @@
 import React from 'react';
 import './App.css';
+import moods from './_moodsHelper';
+import Home from '../Home/Home';
+import Error from '../Error/Error';
+import Gallery from '../Gallery/Gallery';
+
+import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -10,6 +16,7 @@ class App extends React.Component {
       isLoading: true,
       todaysColor: {},
       art: false,
+      error: null,
     }
   }
 
@@ -21,7 +28,7 @@ class App extends React.Component {
       todaysColor: data,
       isLoading: false
     }))
-    .catch(err => console.error(err))
+    .catch(err => this.setState({ error: err }))
   }
 
   fetchArt = () => {
@@ -30,7 +37,7 @@ class App extends React.Component {
     .then(data => this.setState({
       art: data,
     }))
-    .catch(err => console.error(err))
+    .catch(err => this.setState({ error: err }))
   }
 
   getDayOfYear = () => {
@@ -46,13 +53,19 @@ class App extends React.Component {
     console.log(this.state.todaysColor);
     console.log(this.state.art);
     if (this.state.isLoading) {
-      return (<p>Loading...</p>)
+      return (<p className='loading'>Loading...</p>)
+    } else if (this.state.error) {
+      return <Error />
     } else {
       return (
-        <div className="App" style={{backgroundColor: this.state.todaysColor.color}}>
-          <button onClick={this.fetchArt}>{this.state.todaysColor.color}</button>
-          {/* {this.state.art ? <section className='art-section' style={{backgroundColor: this.state.todaysColor.color}}><Art art={this.state.art}/></section> : null} */}
-        </div>
+        <Switch>
+          <Route exact path='/'>
+            <Home todaysColor={this.state.todaysColor.color} fetchArt={this.fetchArt}/>
+          </Route>
+          <Route path='/gallery/:color'>
+            <Gallery />
+          </Route>
+        </Switch>
       );
     }
   }
