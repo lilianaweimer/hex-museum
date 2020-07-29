@@ -5,7 +5,7 @@ import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 
-import { fetchTodaysColor, getAllColors } from '../apiCalls';
+import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -40,14 +40,18 @@ class App extends React.Component {
     ))
   }
 
-  fetchArt = (routeProps) => {
-    console.log(routeProps)
-    // fetch(`https://api.harvardartmuseums.org/object?color:${this.state.todaysColor}&hasImage=1&apikey=${this.state.apikey}`)
-    // .then(response => response.json())
-    // .then(data => this.setState({
-    //   art: data,
-    // }))
-    // .catch(err => console.error(err))
+  loadGallery = (routerProps) => {
+    this.fetchArt(routerProps);
+    return <Gallery art={this.state.art} />
+  }
+
+  fetchArt = (routerProps) => {
+    let color = routerProps.match.params.id;
+    getArt(color, this.state.apikey)
+    .then(data => this.setState({
+      art: data,
+    }))
+    .catch(err => console.error(err))
   }
 
   fetchAllColors = () => {
@@ -70,7 +74,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.art);
+    // console.log(this.state.art);
     if (this.state.isLoading) {
       return (<p className='loading'>Loading...</p>)
     } else if (this.state.error) {
@@ -80,12 +84,12 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/'>
             <Home 
-              todaysColor={this.state.todaysColor.color} 
+              todaysColor={this.state.todaysColor} 
               fetchArt={this.fetchArt}
               fetchAllColors={this.fetchAllColors}
             />
           </Route>
-          <Route path='/gallery/:color' render={routeProps => this.fetchArt(routeProps)}/>
+          <Route path='/gallery/:id' render={(routerProps) => this.loadGallery(routerProps)}/>
           <Route exact path='/colors'>
             <Colors 
               colors={this.state.colors.records}

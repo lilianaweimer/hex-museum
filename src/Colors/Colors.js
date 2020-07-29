@@ -3,7 +3,6 @@ import './Colors.css'
 import { NavLink, Redirect } from 'react-router-dom';
 
 const Colors = (props) => {
-  console.log(props)
   if (props.colors) {
     return (
       <>
@@ -12,7 +11,7 @@ const Colors = (props) => {
           {props.colors.sort((a, b) => b.hex - a.hex).map(color => {
             return (
               <NavLink 
-                to={`/gallery/${color.hex}`} 
+                to={`/gallery/${color.id}`} 
                 className='color-nav' 
                 key={color.id}
                 style={{backgroundColor: color.hex}}
