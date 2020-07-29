@@ -45,7 +45,7 @@ class App extends React.Component {
   }
 
   fetchArt = (color) => {
-    console.log(color)
+    // console.log(color)
     this.setState({ isLoading: true })
     getArt(color, this.state.apikey)
     .then(data => this.setState({
@@ -75,7 +75,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.art);
+    // console.log(this.state.art);
     if (this.state.isLoading) {
       return (<p className='loading'>Loading...</p>)
     } else if (this.state.error) {

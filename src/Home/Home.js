@@ -2,10 +2,11 @@ import React from 'react';
 import './Home.css';
 
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Home = (props) => {
   const styles = {backgroundColor: props.todaysColor.color}
-  console.log(props.todaysColor)
+  // console.log(props.todaysColor)
   return (
     <div className="home" style={styles}>
       <section className='home-nav-section'>
@@ -39,3 +40,9 @@ const Home = (props) => {
 }
 
 export default Home;
+
+Home.propTypes = {
+  todaysColor: PropTypes.object,
+  fetchAllColors: PropTypes.func,
+  fetchArt: PropTypes.func,
+};

@@ -1,6 +1,8 @@
 import React from 'react';
-import './Colors.css'
+import './Colors.css';
+
 import { NavLink, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Colors = (props) => {
   if (props.colors) {
@@ -32,3 +34,8 @@ const Colors = (props) => {
 }
 
 export default Colors;
+
+Colors.propTypes = {
+  colors: PropTypes.object,
+  fetchArt: PropTypes.func,
+}
