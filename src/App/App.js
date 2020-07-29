@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends React.Component {
@@ -52,7 +51,7 @@ class App extends React.Component {
       return (
         <div className="App" style={{backgroundColor: this.state.todaysColor.color}}>
           <button onClick={this.fetchArt}>{this.state.todaysColor.color}</button>
-          {this.state.art ? <section className='art-section' style={{backgroundColor: this.state.todaysColor.color}}><Art art={this.state.art}/></section> : null}
+          {/* {this.state.art ? <section className='art-section' style={{backgroundColor: this.state.todaysColor.color}}><Art art={this.state.art}/></section> : null} */}
         </div>
       );
     }
