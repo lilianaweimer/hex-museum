@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import moods from './_moodsHelper';
 import Home from '../Home/Home';
 import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
@@ -17,6 +16,7 @@ class App extends React.Component {
       isLoading: true,
       todaysColor: {},
       art: false,
+      colors: {},
       error: null,
     }
   }
@@ -29,7 +29,7 @@ class App extends React.Component {
       todaysColor: data,
       isLoading: false
     }))
-    .catch(err => this.setState({ error: err }))
+    .catch(err => console.error(err))
   }
 
   fetchArt = () => {
@@ -38,11 +38,18 @@ class App extends React.Component {
     .then(data => this.setState({
       art: data,
     }))
-    .catch(err => this.setState({ error: err }))
+    .catch(err => console.error(err))
   }
 
   fetchAllColors = () => {
-
+    this.setState({ isLoading: true })
+    fetch(`https://api.harvardartmuseums.org/color?size=147&apikey=${this.state.apikey}`)
+      .then(response => response.json())
+      .then(data => this.setState({
+        isLoading: false,
+        colors: data
+      }))
+      .catch(err => console.error(err))
   }
 
   getDayOfYear = () => {
@@ -65,13 +72,19 @@ class App extends React.Component {
       return (
         <Switch>
           <Route exact path='/'>
-            <Home todaysColor={this.state.todaysColor.color} fetchArt={this.fetchArt}/>
+            <Home 
+              todaysColor={this.state.todaysColor.color} 
+              fetchArt={this.fetchArt}
+              fetchAllColors={this.fetchAllColors}
+            />
           </Route>
           <Route path='/gallery/:color'>
             <Gallery />
           </Route>
-          <Route path='/colors'>
-            <Colors />
+          <Route exact path='/colors'>
+            <Colors 
+              colors={this.state.colors.records}
+            />
           </Route>
         </Switch>
       );
