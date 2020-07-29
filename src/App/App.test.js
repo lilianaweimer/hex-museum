@@ -10,16 +10,40 @@ jest.mock('../apiCalls');
 
 describe('App', () => {
 
-  fetchTodaysColor.mockResolvedValue({})
+  fetchTodaysColor.mockResolvedValue({color: 'mock color'})
 
-  it('should render correctly', async () => {
+  it('should render the loading message before mounting', () => {
     const { getByText } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
     );
 
-    const todaysColor = await waitFor(() => getByText('today\'s color:'));
+    const loading = getByText('Loading...');
+
+    expect(loading).toBeInTheDocument();
+  });
+  
+  it('should render correctly after mounting', async () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    const todaysColor = await waitFor(() => getByText('today\'s color: mock color'));
+    const todaysGallery = await waitFor(() => getByText('view today\'s gallery'));
+    const otherColors = await waitFor(() => getByText('pick another color'));
+    const viewFavorites = await waitFor(() => getByText('view my gallery'));
+
+    expect(todaysColor).toBeInTheDocument();
+    expect(todaysGallery).toBeInTheDocument();
+    expect(otherColors).toBeInTheDocument();
+    expect(viewFavorites).toBeInTheDocument();
   }); 
+
+  // it('should be able to go to the all colors page', () => {
+
+  // });
 
 });
