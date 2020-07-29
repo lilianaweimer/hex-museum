@@ -79,7 +79,7 @@ class App extends React.Component {
     if (this.state.isLoading) {
       return (<p className='loading'>Loading...</p>)
     } else if (this.state.error) {
-      return <p>{this.state.error}</p>
+      return <Error error={this.state.error}/>
     } else if (!this.state.isLoading && !this.state.error) {
       return (
         <Switch>
@@ -96,6 +96,9 @@ class App extends React.Component {
               colors={this.state.colors.records}
               fetchArt={this.fetchArt}
             />
+          </Route>
+          <Route path='/error'>
+            <Error />
           </Route>
         </Switch>
       );
