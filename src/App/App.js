@@ -40,6 +40,10 @@ class App extends React.Component {
     .catch(err => this.setState({ error: err }))
   }
 
+  fetchAllColors = () => {
+    
+  }
+
   getDayOfYear = () => {
     var now = new Date();
     var start = new Date(now.getFullYear(), 0, 0);
