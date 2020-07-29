@@ -8,9 +8,32 @@ const Home = (props) => {
 
   return (
     <div className="home" style={styles}>
-      <h2 style={styles}>today's color: {props.todaysColor}</h2>  
-      <NavLink to={`/gallery/${props.todaysColor}`} id={props.todaysColor} onClick={props.fetchArt}>view today's gallery</NavLink>
-      <NavLink to='/colors' onClick={props.fetchAllColors}>pick another color</NavLink>
+      <section className='home-nav-section'>
+        <h2>today's color: {props.todaysColor}</h2>  
+        <NavLink 
+          to={`/gallery/${props.todaysColor}`} 
+          id={props.todaysColor} 
+          onClick={props.fetchArt} 
+          className='home-nav'
+          style={styles}>
+            view today's gallery
+        </NavLink>
+        <br />
+        <NavLink 
+          to='/colors' 
+          onClick={props.fetchAllColors} 
+          className='home-nav'
+          style={styles}>
+            pick another color
+          </NavLink>
+        <br />
+        <NavLink 
+          to='/favorites' 
+          className='home-nav'
+          style={styles}>
+            view my gallery
+        </NavLink>
+      </section>
     </div>
   )
 }
