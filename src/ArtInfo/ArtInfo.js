@@ -8,8 +8,10 @@ const ArtInfo = (props) => {
   console.log(info.images);
   console.log(info.people);
   return (
-    <div style={{backgroundColor: props.color}} className='piece'>
-      <NavLink to='/' className='home-nav'>home</NavLink>
+    <div style={{ backgroundColor: props.color }}>
+      <section className='piece'>
+      <NavLink to='/' className='home-btn'>home</NavLink>
+      <button className='home-btn' onClick={() => window.history.back()}>back</button>
       <section>
       <h1 className='info-didactic'>{info.title}</h1>
       {info.primaryimageurl ? 
@@ -38,6 +40,7 @@ const ArtInfo = (props) => {
                   alt={`${info.title}`}
                 />
       }) : null}
+    </section>
     </section>
     </div>
   )

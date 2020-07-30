@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const Colors = (props) => {
   if (props.colors) {
     return (
-      <>
+      <div style={{ textAlign: "center" }}>
         <NavLink to='/' className='home-nav'>home</NavLink>
         <section className='colors'>
           {props.colors.sort((a, b) => b.hex - a.hex).map(color => {
@@ -27,7 +27,7 @@ const Colors = (props) => {
             )
         })}
       </section>
-      </>
+      </div>
     )
   } else {
     return <Redirect to='/'/>
