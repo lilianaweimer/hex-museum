@@ -5,9 +5,9 @@ import { NavLink, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Home = (props) => {
-  const styles = {backgroundColor: props.todaysColor.color}
   // console.log(props.todaysColor)
   if (props.todaysColor) {
+    const styles = {backgroundColor: props.todaysColor.color}
     return (
       <div className="home" style={styles}>
         <section className='home-nav-section'>
