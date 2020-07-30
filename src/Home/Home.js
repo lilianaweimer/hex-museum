@@ -15,7 +15,7 @@ const Home = (props) => {
           <NavLink 
             to={`/gallery/${props.todaysColor.id}`} 
             id={props.todaysColor}
-            onClick={() => props.fetchArt(props.todaysColor)} 
+            onClick={() => {props.fetchArt(props.todaysColor); props.setCurrentColor(props.todaysColor.color)}} 
             className='home-nav'
             style={styles}>
               view today's gallery

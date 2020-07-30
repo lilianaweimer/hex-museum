@@ -41,17 +41,19 @@ class App extends React.Component {
     ))
   }
 
-  loadGallery = () => {
+  loadGallery = (event) => {
     return Object.keys(this.state.art).length 
-      ? <Gallery art={this.state.art} currentColor={this.state.currentColor} /> 
+      ? <Gallery 
+          art={this.state.art} 
+          currentColor={this.state.currentColor} 
+          getNewPiece={this.getNewPiece} 
+        /> 
       : <Redirect to='/'/>;
   }
 
-  fetchArt = (color) => {
-    // console.log(color)
+  fetchArt = (color, id) => {
     this.setState({ 
       isLoading: true,
-      currentColor: color 
     })
     getArt(color, apikey)
     .then(data => this.setState({
@@ -61,16 +63,21 @@ class App extends React.Component {
     .catch(err => console.error(err))
   }
 
-  getNewPiece = (piece) => {
-    console.log(piece);
-    // let toRemove = this.state.art.find(art => art.objectid === id)
-    // console.log(toRemove);
-    // this.state.art.pop(toRemove)
-    // getReplacement(color)
-    //   .then(data => this.setState({
-    //     art: [...this.state.art, data.records]
-    //   }))
-    //   .catch(err => console.error(err))
+  setCurrentColor = (color) => {
+    this.setState({
+      currentColor: color
+    })
+  }
+
+  getNewPiece = (color, id) => {
+    let art = this.state.art.records;
+    let toRemove = art.find(art => art.objectid === id)
+    art.splice(art.indexOf(toRemove), 1)
+    getReplacement(color)
+      .then(data => this.setState({
+        art: { records: [...this.state.art.records, data.records] }
+      }))
+      .catch(err => console.error(err))
   }
 
   fetchAllColors = () => {
@@ -94,6 +101,7 @@ class App extends React.Component {
 
   render() {
     // console.log(this.state.art);
+    console.log('currentColor', this.state.currentColor);
     if (this.state.isLoading) {
       return (<p className='loading'>Loading...</p>)
     } else if (this.state.error) {
@@ -106,6 +114,7 @@ class App extends React.Component {
               todaysColor={this.state.todaysColor} 
               fetchArt={this.fetchArt}
               fetchAllColors={this.fetchAllColors}
+              setCurrentColor={this.setCurrentColor}
             />
           </Route>
           <Route path='/gallery/:id' render={(event) => this.loadGallery(event)}/>
@@ -113,6 +122,7 @@ class App extends React.Component {
             <Colors 
               colors={this.state.colors.records}
               fetchArt={this.fetchArt}
+              setCurrentColor={this.setCurrentColor}
             />
           </Route>
           <Route path='/error'>

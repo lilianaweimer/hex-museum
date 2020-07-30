@@ -14,7 +14,7 @@ const Colors = (props) => {
             return (
               <NavLink 
                 to={`/gallery/${color.id}`}
-                onClick={() => props.fetchArt(color.id)} 
+                onClick={() => {props.fetchArt(color.id); props.setCurrentColor(color.hex)}} 
                 className='color-nav' 
                 key={color.id}
                 id={color.hex}

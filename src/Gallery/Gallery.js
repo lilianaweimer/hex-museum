@@ -1,18 +1,36 @@
 import React from 'react';
 import './Gallery.css';
 
+import { NavLink } from 'react-router-dom';
+
 const Gallery = (props) => {
   if (props.art) {
-    return (props.art.records.map(piece => {
+    // props.art.records.forEach(piece => {
+    //   if (!piece.baseimageurl) {
+    //     props.getNewPiece(props.currentColor, piece.objectid)
+    //   }
+    // })
+    return (
+      <div style={{ backgroundColor: props.currentColor }}>
+        <NavLink to='/' className='home-nav'>home</NavLink>
+        <section className='gallery'>
+          {props.art.records.map(piece => {
+      // console.log(piece.primaryimageurl);
+      // console.log(piece.images);
         return (
-          <img 
-            className='art-img' 
-            src={piece.primaryimageurl} 
-            alt={piece.title}
-            onError={(piece.images.length > 1 ? piece.images[1].baseimageurl : './lostimg.jpg')}
-          />
+          <article className='art-icle' key={piece.objectid}>
+            <img 
+              className='art-img' 
+              src={piece.primaryimageurl ? piece.primaryimageurl : require('./lostimg.jpg')} 
+              alt={piece.title}
+              // onError={() => this.src='./lostimg.jpg'}
+            />
+          </article>
         )
-    }))
+    })}
+      </section>
+      </div>
+    )
   }
 }
 

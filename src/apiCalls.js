@@ -21,7 +21,7 @@ export const getAllColors = (apikey) => {
 export const getArt = (color, apikey) => {
   //temporary mock to avoid going over limit
    return Promise.resolve(colorGallery)
-  // return fetch(`https://api.harvardartmuseums.org/object?q=imagepermissionlevel:0&color:${color}&hasImage=1&apikey=${apikey}`)
+  // return fetch(`https://api.harvardartmuseums.org/object?color:${color}&apikey=${apikey}&hasImage=1&sort=random&q=imagepermissionlevel:0`)
   //   .then(response => response.json())
 }
 
