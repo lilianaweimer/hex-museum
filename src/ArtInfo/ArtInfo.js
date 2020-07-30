@@ -1,0 +1,46 @@
+import React from 'react';
+import './ArtInfo.css';
+import { NavLink } from 'react-router-dom';
+
+const ArtInfo = (props) => {
+  let info = props.info;
+  console.log(info);
+  console.log(info.images);
+  console.log(info.people);
+  return (
+    <div style={{backgroundColor: props.color}} className='piece'>
+      <NavLink to='/' className='home-nav'>home</NavLink>
+      <section>
+      <h1 className='info-didactic'>{info.title}</h1>
+      {info.primaryimageurl ? 
+        <img 
+          src={info.primaryimageurl} 
+          alt={info.title}
+          className='piece-imglarge' 
+        /> 
+        : null}
+      <article className='info-didactic'>
+        {info.people ? info.people.map(person => {
+            return <h3>{`${person.role}: ${person.displayname}`}</h3>
+          }) : <h3>unknown artist</h3>}
+        <p>{info.culture}</p>
+        <p>{info.century}</p>
+        <p>{info.period}</p>
+        <p>{info.medium}</p>
+        <p>{info.technique}</p>
+        <p>{info.description}</p>
+        <button className='home-nav'>add to favorites</button>
+      </article>
+      {info.images ? info.images.map(image => {
+        return <img 
+                  className='piece-img' 
+                  src={image.baseimageurl} 
+                  alt={`${info.title}`}
+                />
+      }) : null}
+    </section>
+    </div>
+  )
+}
+
+export default ArtInfo;

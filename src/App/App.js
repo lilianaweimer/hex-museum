@@ -5,6 +5,7 @@ import Home from '../Home/Home';
 import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
+import ArtInfo from '../ArtInfo/ArtInfo';
 
 import { fetchTodaysColor, getAllColors, getArt, getReplacement } from '../apiCalls';
 
@@ -49,6 +50,16 @@ class App extends React.Component {
           getNewPiece={this.getNewPiece} 
         /> 
       : <Redirect to='/'/>;
+  }
+
+  loadArtInfo = (routeProps) => {
+    if (Object.keys(this.state.art).length) {
+      let artId = Number(routeProps.match.params.id);
+      let foundArt = this.state.art.records.find(piece => piece.id === artId);
+      return (foundArt ? <ArtInfo info={foundArt} color={this.state.currentColor}/> : <Error />);
+    } else {
+      return <Redirect to='/'/>
+    }
   }
 
   fetchArt = (color, id) => {
@@ -124,6 +135,7 @@ class App extends React.Component {
               setCurrentColor={this.setCurrentColor}
             />
           </Route>
+          <Route path='/piece/:id' render={(routeProps) => this.loadArtInfo(routeProps)}/>
           <Route path='/error'>
             <Error />
           </Route>

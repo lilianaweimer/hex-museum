@@ -16,8 +16,8 @@ const Gallery = (props) => {
         <section className='gallery'>
           {props.art.records.map(piece => {
         return (
-          <NavLink to={`/piece/${piece.objectid}`}>
-            <article className='art-icle' key={piece.objectid}>
+          <NavLink to={`/piece/${piece.objectid}`} key={piece.objectid}>
+            <article className='art-icle'>
             <img 
               className='art-img' 
               src={piece.primaryimageurl ? piece.primaryimageurl : require('./lostimg.jpg')} 
