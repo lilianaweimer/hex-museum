@@ -3,9 +3,8 @@ import Gallery from './Gallery';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, fireEvent, waitFor, queryByText } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { fetchTodaysColor } from '../apiCalls';
 jest.mock('../apiCalls');
 
 describe('Colors', () => {

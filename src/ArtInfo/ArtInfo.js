@@ -4,9 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 const ArtInfo = (props) => {
   let info = props.info;
-  console.log(info);
-  console.log(info.images);
-  console.log(info.people);
   return (
     <div style={{ backgroundColor: props.color }}>
       <section className='piece'>
@@ -23,7 +20,7 @@ const ArtInfo = (props) => {
         : null}
       <article className='info-didactic'>
         {info.people ? info.people.map(person => {
-            return <h3>{`${person.role}: ${person.displayname}`}</h3>
+            return <h3 key={info.people.indexOf(person)}>{`${person.role}: ${person.displayname}`}</h3>
           }) : <h3>unknown artist</h3>}
         <p>{info.culture}</p>
         <p>{info.century}</p>
@@ -34,7 +31,8 @@ const ArtInfo = (props) => {
         <button className='home-nav'>add to favorites</button>
       </article>
       {info.images ? info.images.map(image => {
-        return <img 
+        return <img
+                  key={info.images.indexOf(image)} 
                   className='piece-img' 
                   src={image.baseimageurl} 
                   alt={`${info.title}`}

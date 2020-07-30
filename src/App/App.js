@@ -56,7 +56,12 @@ class App extends React.Component {
     if (Object.keys(this.state.art).length) {
       let artId = Number(routeProps.match.params.id);
       let foundArt = this.state.art.records.find(piece => piece.id === artId);
-      return (foundArt ? <ArtInfo info={foundArt} color={this.state.currentColor}/> : <Error />);
+      return (foundArt ? 
+        <ArtInfo 
+          info={foundArt} 
+          color={this.state.currentColor}/> : 
+        <Error />
+      );
     } else {
       return <Redirect to='/'/>
     }
