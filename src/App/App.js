@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
+import apikey from '../apikey';
 import Home from '../Home/Home';
 import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 
-import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
+import { fetchTodaysColor, getAllColors, getArt, getReplacement } from '../apiCalls';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -13,18 +14,18 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      apikey: '18c3325e-bd93-4663-98ca-c165cdde5592',
       today: new Date(),
       isLoading: true,
       todaysColor: {},
       art: {},
       colors: {},
+      currentColor: null,
       error: null,
     }
   }
 
   componentDidMount() {
-    fetchTodaysColor(this.getDayOfYear(), this.state.apikey)
+    fetchTodaysColor(this.getDayOfYear(), apikey)
     .then(
       (data) => this.setState({
       todaysColor: data,
@@ -41,13 +42,18 @@ class App extends React.Component {
   }
 
   loadGallery = () => {
-    return Object.keys(this.state.art).length ? <Gallery art={this.state.art} /> : <Redirect to='/'/>;
+    return Object.keys(this.state.art).length 
+      ? <Gallery art={this.state.art} currentColor={this.state.currentColor} /> 
+      : <Redirect to='/'/>;
   }
 
   fetchArt = (color) => {
     // console.log(color)
-    this.setState({ isLoading: true })
-    getArt(color, this.state.apikey)
+    this.setState({ 
+      isLoading: true,
+      currentColor: color 
+    })
+    getArt(color, apikey)
     .then(data => this.setState({
       art: data,
       isLoading: false,
@@ -55,9 +61,21 @@ class App extends React.Component {
     .catch(err => console.error(err))
   }
 
+  getNewPiece = (piece) => {
+    console.log(piece);
+    // let toRemove = this.state.art.find(art => art.objectid === id)
+    // console.log(toRemove);
+    // this.state.art.pop(toRemove)
+    // getReplacement(color)
+    //   .then(data => this.setState({
+    //     art: [...this.state.art, data.records]
+    //   }))
+    //   .catch(err => console.error(err))
+  }
+
   fetchAllColors = () => {
     this.setState({ isLoading: true })
-    getAllColors(this.state.apikey)
+    getAllColors(apikey)
       .then(data => this.setState({
         isLoading: false,
         colors: data

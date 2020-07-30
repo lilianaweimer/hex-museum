@@ -52,7 +52,7 @@ describe('Home', () => {
     expect(queryByText('view my gallery')).not.toBeInTheDocument();
   });
 
-  it('should fire a function if view todays gallery is clicked', () => {
+  it('should fire a function if view today\'s gallery is clicked', () => {
     const mockFetchArt = jest.fn();
     const { getByText, debug } = render(
       <MemoryRouter>

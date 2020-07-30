@@ -1,7 +1,19 @@
 import React from 'react';
+import './Gallery.css';
 
-const Gallery = () => {
-  return (<p>gallery</p>)
+const Gallery = (props) => {
+  if (props.art) {
+    return (props.art.records.map(piece => {
+        return (
+          <img 
+            className='art-img' 
+            src={piece.primaryimageurl} 
+            alt={piece.title}
+            onError={(piece.images.length > 1 ? piece.images[1].baseimageurl : './lostimg.jpg')}
+          />
+        )
+    }))
+  }
 }
 
 export default Gallery;
