@@ -19,6 +19,7 @@ const Colors = (props) => {
                 key={color.id}
                 id={color.hex}
                 style={{backgroundColor: color.hex}}
+                data-testid='color-nav'
               >
                 <p className='color-info'>{color.name}</p>
                 <p className='color-info'>{color.hex}</p>
@@ -36,6 +37,6 @@ const Colors = (props) => {
 export default Colors;
 
 Colors.propTypes = {
-  colors: PropTypes.object,
+  colors: PropTypes.array,
   fetchArt: PropTypes.func,
 }
