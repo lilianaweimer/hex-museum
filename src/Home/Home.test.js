@@ -20,6 +20,7 @@ describe('Home', () => {
           }}
           fetchArt={jest.fn()}
           fetchAllColors={jest.fn()}
+          setCurrentColor={jest.fn()}
         />
       </MemoryRouter>
     );
@@ -42,6 +43,7 @@ describe('Home', () => {
           todaysColor={null}
           fetchArt={jest.fn()}
           fetchAllColors={jest.fn()}
+          setCurrentColor={jest.fn()}
         />
       </MemoryRouter>
     );
@@ -63,6 +65,7 @@ describe('Home', () => {
           }}
           fetchArt={mockFetchArt}
           fetchAllColors={jest.fn()}
+          setCurrentColor={jest.fn()}
         />
       </MemoryRouter>
     );
@@ -86,6 +89,7 @@ describe('Home', () => {
           }}
           fetchArt={jest.fn()}
           fetchAllColors={mockFetchAllColors}
+          setCurrentColor={jest.fn()}
         />
       </MemoryRouter>
     );

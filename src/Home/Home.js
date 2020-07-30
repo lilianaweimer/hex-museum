@@ -49,4 +49,5 @@ Home.propTypes = {
   todaysColor: PropTypes.object,
   fetchAllColors: PropTypes.func,
   fetchArt: PropTypes.func,
+  setCurrentColor: PropTypes.func
 };

@@ -39,4 +39,5 @@ export default Colors;
 Colors.propTypes = {
   colors: PropTypes.array,
   fetchArt: PropTypes.func,
+  setCurrentColor: PropTypes.func
 }

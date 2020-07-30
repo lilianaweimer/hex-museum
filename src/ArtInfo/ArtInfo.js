@@ -1,6 +1,9 @@
 import React from 'react';
 import './ArtInfo.css';
+
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 const ArtInfo = (props) => {
   let info = props.info;
@@ -45,3 +48,8 @@ const ArtInfo = (props) => {
 }
 
 export default ArtInfo;
+
+ArtInfo.propTypes = {
+  art: PropTypes.object,
+  color: PropTypes.string
+}

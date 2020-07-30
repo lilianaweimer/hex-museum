@@ -2,6 +2,7 @@ import React from 'react';
 import './Gallery.css';
 
 import { NavLink, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Gallery = (props) => {
   if (props.art) {
@@ -38,3 +39,9 @@ const Gallery = (props) => {
 }
 
 export default Gallery;
+
+Gallery.propTypes = {
+  art: PropTypes.object,
+  currentColor: PropTypes.string,
+  getNewPiece: PropTypes.func
+}
