@@ -15,8 +15,6 @@ const Gallery = (props) => {
         <NavLink to='/' className='home-nav'>home</NavLink>
         <section className='gallery'>
           {props.art.records.map(piece => {
-      // console.log(piece.primaryimageurl);
-      // console.log(piece.images);
         return (
           <article className='art-icle' key={piece.objectid}>
             <img 
@@ -25,10 +23,15 @@ const Gallery = (props) => {
               alt={piece.title}
               // onError={() => this.src='./lostimg.jpg'}
             />
+            <div className='gallery-didactic'>
+              <p className='gallery-title'>{piece.title ? piece.title : 'no title'}</p>
+              <p>{piece.people ? piece.people[0].displayname : 'unknown artist'}</p>
+            </div>
           </article>
         )
     })}
       </section>
+        <button className='home-nav'>More Art!</button>
       </div>
     )
   }

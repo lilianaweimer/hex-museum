@@ -101,7 +101,6 @@ class App extends React.Component {
 
   render() {
     // console.log(this.state.art);
-    console.log('currentColor', this.state.currentColor);
     if (this.state.isLoading) {
       return (<p className='loading'>Loading...</p>)
     } else if (this.state.error) {
