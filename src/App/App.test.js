@@ -46,6 +46,24 @@ describe('App', () => {
       people: [{
         displayname: 'artist2'
       }]
+    },
+    { 
+      objectid: 1082297,
+      title: 'title',
+      primaryimageurl: 'url.png',
+      people: [{
+        role: 'artist',
+        displayname: 'Leo D.V.'
+      }],
+      culture: 'culture',
+      century: 'century',
+      period: 'period',
+      medium: 'medium', 
+      technique: 'technique',
+      description: 'description',
+      images: [{
+        baseimageurl: 'url2.jpg'
+      }]
     }
   ]});
 
@@ -80,7 +98,7 @@ describe('App', () => {
   }); 
 
   it('should be able to go to today\'s gallery', async () => {
-    const { getByText, debug } = render(
+    const { getByText } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
@@ -101,6 +119,26 @@ describe('App', () => {
     expect(pieceTwo).toBeInTheDocument();
     expect(artistTwo).toBeInTheDocument();
   });
+
+  it.skip('should be able to go to a specific art page from today\'s gallery', async () => {
+    const { getByText, findAllByTestId, debug } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    const todaysGallery = await waitFor(() => getByText('view today\'s gallery'));
+    
+    fireEvent.click(todaysGallery);
+    
+    const aboutButton = await waitFor(() => findAllByTestId('1082297'));
+
+    fireEvent.click(aboutButton);
+    debug()
+    // const description = await waitFor(() => getByText('description'));
+
+    // expect(description).toBeInTheDocument();
+  }); 
 
   it('should be able to go to the all colors page', async () => {
     const { getByText } = render(

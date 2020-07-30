@@ -24,7 +24,7 @@ const Gallery = (props) => {
               <p className='gallery-title gallery-info'>{piece.title ? piece.title : 'no title'}</p>
               <p className='gallery-info'>{piece.people ? piece.people[0].displayname : 'unknown artist'}</p>
               <button className='home-nav'>favorite</button>
-              <NavLink to={`/piece/${piece.objectid}`}><button className='home-nav'>about</button></NavLink>
+              <NavLink to={`/piece/${piece.objectid}`}><button className='home-nav' data-testid={piece.objectid}>about</button></NavLink>
             </div>
           </article>
         )
