@@ -5,12 +5,49 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { fetchTodaysColor } from '../apiCalls';
+import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 jest.mock('../apiCalls');
 
 describe('App', () => {
 
-  fetchTodaysColor.mockResolvedValue({color: 'mock color'})
+  fetchTodaysColor.mockResolvedValue({color: 'mock color'});
+
+  getAllColors.mockResolvedValue({records: [
+    {
+      name: 'color one',
+      hex: '#123456',
+      id: 123456
+    },
+    {
+      name: 'color two',
+      hex: '#ABCDE',
+      id: 234546
+    },
+    {
+      name: 'color three',
+      hex: '#w38i7d',
+      id: 674843239
+    }
+  ]});
+
+  getArt.mockResolvedValue({ records: [
+    {
+      objectid: 12345,
+      primaryimageurl: 'url1.jpg',
+      title: 'piece1',
+      people: [{
+        displayname: 'artist1'
+      }]
+    },
+    {
+      objectid: 54321,
+      primaryimageurl: 'url2.png',
+      title: 'piece2',
+      people: [{
+        displayname: 'artist2'
+      }]
+    }
+  ]});
 
   it('should render the loading message before mounting', () => {
     const { getByText } = render(
@@ -42,8 +79,47 @@ describe('App', () => {
     expect(viewFavorites).toBeInTheDocument();
   }); 
 
-  // it('should be able to go to the all colors page', () => {
+  it('should be able to go to today\'s gallery', async () => {
+    const { getByText, debug } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
 
-  // });
+    const todaysGallery = await waitFor(() => getByText('view today\'s gallery'));
+    
+    fireEvent.click(todaysGallery);
+    
+    
+    const pieceOne = await waitFor(() => getByText('piece1'))
+    const artistOne = await waitFor(() => getByText('artist1'))
+    const pieceTwo = await waitFor(() => getByText('piece2'))
+    const artistTwo = await waitFor(() => getByText('artist2'));
+    
+    expect(pieceOne).toBeInTheDocument();
+    expect(artistOne).toBeInTheDocument();
+    expect(pieceTwo).toBeInTheDocument();
+    expect(artistTwo).toBeInTheDocument();
+  });
+
+  it('should be able to go to the all colors page', async () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    const otherColors = await waitFor(() => getByText('pick another color'));
+    
+    fireEvent.click(otherColors);
+
+    const colorOne = await waitFor(() => getByText('color one'))
+    const colorTwo = await waitFor(() => getByText('color two'))
+    const colorThree = await waitFor(() => getByText('color three'))
+    
+    expect(colorOne).toBeInTheDocument();
+    expect(colorTwo).toBeInTheDocument();
+    expect(colorThree).toBeInTheDocument();
+  });
 
 });

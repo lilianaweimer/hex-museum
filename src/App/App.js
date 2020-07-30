@@ -98,7 +98,7 @@ class App extends React.Component {
 
   fetchAllColors = () => {
     this.setState({ isLoading: true })
-    getAllColors(apikey)
+    getAllColors()
       .then(data => this.setState({
         isLoading: false,
         colors: data
