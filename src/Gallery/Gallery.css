@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+.art-img {
+  height: 300px;
+  width: auto;
+
+}
+
+.art-icle {
+  border: 10px solid black;
+  height: 300px;
+  width: max-content;
+  margin: 10px;
+}
+
+.gallery {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  justify-content: space-evenly;
+}
+
+.gallery-didactic {
+  display: none;
+  text-decoration: none!important;
+}
+
+.gallery-title {
+  font-weight: bold;
+}
+
+.art-icle:hover {
+  box-shadow: 3px 3px 4px 4px grey;
+}
+
+.art-icle:hover > div {
+  width: 300px;
+  position: relative;
+  bottom: 310px;
+  font-family: sans-serif;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 20px 10px;
+  font-size: 20px;
+  display: block;
+  color: white!important;
+}
+
+.gallery-info {
+  text-decoration: none!important;
+}
+
+.art-icle:hover > img {
+  opacity: 0.33;
+}

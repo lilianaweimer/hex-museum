@@ -1,0 +1,27 @@
+.piece-img {
+  height: 200px;
+  border: 10px solid black;
+  margin: 10px 10px;
+}
+
+.piece-imglarge {
+  border: 10px solid black;
+  margin: 10px 10px;
+}
+
+.piece {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.info-didactic {
+  background-color: white;
+  width: 500px;
+  border: 10px solid black;
+  padding: 10px;
+  margin: 10px auto;
+  
+}
