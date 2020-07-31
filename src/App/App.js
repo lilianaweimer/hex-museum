@@ -6,6 +6,7 @@ import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
+import Favorites from '../Favorites/Favorites';
 
 import { fetchTodaysColor, getAllColors, getArt, getReplacement } from '../apiCalls';
 
@@ -20,6 +21,7 @@ class App extends React.Component {
       todaysColor: {},
       art: {},
       colors: {},
+      favorites: [],
       currentColor: null,
       error: null,
     }
@@ -47,7 +49,9 @@ class App extends React.Component {
       ? <Gallery 
           art={this.state.art} 
           currentColor={this.state.currentColor} 
-          getNewPiece={this.getNewPiece} 
+          getNewPiece={this.getNewPiece}
+          favorites={this.state.favorites}
+          toggleFavorite={this.toggleFavorite} 
         /> 
       : <Redirect to='/'/>;
   }
@@ -59,7 +63,9 @@ class App extends React.Component {
       return (foundArt ? 
         <ArtInfo 
           info={foundArt} 
-          color={this.state.currentColor}/> : 
+          color={this.state.currentColor}
+          favorites={this.state.favorites}
+          toggleFavorite={this.toggleFavorite}/> : 
         <Error />
       );
     } else {
@@ -106,6 +112,10 @@ class App extends React.Component {
       .catch(err => console.error(err))
   }
 
+  toggleFavorite = (id, isFavorite) => {
+
+  }
+
   getDayOfYear = () => {
     var now = new Date();
     var start = new Date(now.getFullYear(), 0, 0);
@@ -143,6 +153,9 @@ class App extends React.Component {
           <Route path='/piece/:id' render={(routeProps) => this.loadArtInfo(routeProps)}/>
           <Route path='/error'>
             <Error />
+          </Route>
+          <Route path='/favorites'>
+            <Favorites />
           </Route>
         </Switch>
       );

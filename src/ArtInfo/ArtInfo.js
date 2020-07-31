@@ -51,5 +51,7 @@ export default ArtInfo;
 
 ArtInfo.propTypes = {
   art: PropTypes.object,
-  color: PropTypes.string
+  color: PropTypes.string,
+  favorites: PropTypes.array,
+  toggleFavorites: PropTypes.func,
 }
