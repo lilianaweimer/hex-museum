@@ -11,7 +11,7 @@ export const fetchTodaysColor = (day, apikey) => {
   //   .then(response => response.json())
 }
 
-export const getAllColors = (apikey) => {
+export const getAllColors = () => {
   //temporary mock to avoid going over limit 
   return Promise.resolve(allColors)
   // return fetch(`https://api.harvardartmuseums.org/color?size=147&apikey=${apikey}`)
