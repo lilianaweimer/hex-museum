@@ -160,7 +160,11 @@ class App extends React.Component {
             <Error />
           </Route>
           <Route path='/favorites'>
-            <Favorites />
+            <Favorites 
+              favorites={this.state.favorites}
+              toggleFavorite={this.toggleFavorite}
+              color={this.state.todaysColor.color}
+            />
           </Route>
         </Switch>
       );
