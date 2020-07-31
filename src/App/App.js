@@ -92,14 +92,14 @@ class App extends React.Component {
   }
 
   getNewPiece = (color, id) => {
-    let art = this.state.art.records;
-    let toRemove = art.find(art => art.objectid === id)
-    art.splice(art.indexOf(toRemove), 1)
-    getReplacement(color)
-      .then(data => this.setState({
-        art: { records: [...this.state.art.records, data.records] }
-      }))
-      .catch(err => console.error(err))
+    // let art = this.state.art.records;
+    // let toRemove = art.find(art => art.objectid === id)
+    // art.splice(art.indexOf(toRemove), 1)
+    // getReplacement(color)
+    //   .then(data => this.setState({
+    //     art: { records: [...this.state.art.records, data.records] }
+    //   }))
+    //   .catch(err => console.error(err))
   }
 
   fetchAllColors = () => {
@@ -112,8 +112,13 @@ class App extends React.Component {
       .catch(err => console.error(err))
   }
 
-  toggleFavorite = (id, isFavorite) => {
-
+  toggleFavorite = (piece, isFavorite) => {
+    console.log(piece);
+    console.log(isFavorite);
+    isFavorite ? 
+    this.setState({ favorites: this.state.favorites.filter(favorite => {
+      return piece.objectid !== favorite.objectid}) }) :
+    this.setState({ favorites: [...this.state.favorites, piece]})
   }
 
   getDayOfYear = () => {

@@ -24,7 +24,7 @@ const Gallery = (props) => {
               <p className='gallery-info'>{piece.people ? piece.people[0].displayname : 'unknown artist'}</p>
               <button 
                 className='home-nav' 
-                onClick={() => props.toggleFavorite(piece.objectid, props.favorites.includes(piece))}>
+                onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
                   {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
               </button>
               <NavLink to={`/piece/${piece.objectid}`}>
