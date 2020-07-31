@@ -113,8 +113,6 @@ class App extends React.Component {
   }
 
   toggleFavorite = (piece, isFavorite) => {
-    console.log(piece);
-    console.log(isFavorite);
     isFavorite ? 
     this.setState({ favorites: this.state.favorites.filter(favorite => {
       return piece.objectid !== favorite.objectid}) }) :
