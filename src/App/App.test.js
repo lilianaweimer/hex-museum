@@ -160,7 +160,7 @@ describe('App', () => {
     expect(colorThree).toBeInTheDocument();
   });
 
-  it('should be able to go to the all colors page', async () => {
+  it('should be able to go to a piece\'s info page from the all colors page', async () => {
     const { getByText, getByTestId } = render(
       <MemoryRouter>
         <App />
@@ -176,6 +176,20 @@ describe('App', () => {
     fireEvent.click(getByTestId('2'));
 
     expect(getByText('artist: Leo D.V.')).toBeInTheDocument();
+  });
+
+  it('should be able to go to the favorites page', async () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    const favorites = await waitFor(() => getByText('view my gallery'));
+    
+    fireEvent.click(favorites);
+    
+    expect(getByText('no favorites yet!')).toBeInTheDocument();
   });
 
 });
