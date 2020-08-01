@@ -3,7 +3,7 @@ import Favorites from './Favorites';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 jest.mock('../apiCalls');
 
@@ -58,6 +58,26 @@ describe('Colors', () => {
 
     expect(getByText('no favorites yet!')).toBeInTheDocument();
     expect(getByRole('link', {name: 'home'})).toBeInTheDocument();
+  });
+
+
+  it('should fire a function when unfavorite is clicked', async () => {
+    const mockUnfavorite = jest.fn();
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <Favorites 
+          favorites={mockArt}
+          color={'color'}
+          toggleFavorite={mockUnfavorite}
+        />
+      </MemoryRouter>
+    );
+
+    const unfavorite = getByTestId('0', {role: 'button'});
+
+    fireEvent.click(unfavorite);
+    
+    expect(mockUnfavorite).toHaveBeenCalledTimes(1);
   });
 
 });
