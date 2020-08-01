@@ -1,18 +1,18 @@
 import React from 'react';
 import './Colors.css';
 
-import { NavLink, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Colors = (props) => {
   if (props.colors) {
     return (
       <div style={{ textAlign: "center" }}>
-        <NavLink to='/' className='home-nav'>home</NavLink>
+        <Link to='/' className='home-nav'>home</Link>
         <section className='colors'>
           {props.colors.sort((a, b) => b.hex - a.hex).map(color => {
             return (
-              <NavLink 
+              <Link 
                 to={`/gallery/${color.id}`}
                 onClick={() => {props.fetchArt(color.id); props.setCurrentColor(color.hex)}} 
                 className='color-nav' 
@@ -23,7 +23,7 @@ const Colors = (props) => {
               >
                 <p className='color-info'>{color.name}</p>
                 <p className='color-info'>{color.hex}</p>
-              </NavLink>
+              </Link>
             )
         })}
       </section>

@@ -12,7 +12,7 @@ import mockFavorites from '../MockAPIData/mockFavorites';
 
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
-import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -53,7 +53,8 @@ class App extends React.Component {
           currentColor={this.state.currentColor} 
           getNewPiece={this.getNewPiece}
           favorites={this.state.favorites}
-          toggleFavorite={this.toggleFavorite} 
+          toggleFavorite={this.toggleFavorite}
+          isLoading={this.state.isLoading} 
         /> 
       : <Redirect to='/'/>;
   }
@@ -93,17 +94,6 @@ class App extends React.Component {
     })
   }
 
-  getNewPiece = (color, id) => {
-    // let art = this.state.art.records;
-    // let toRemove = art.find(art => art.objectid === id)
-    // art.splice(art.indexOf(toRemove), 1)
-    // getReplacement(color)
-    //   .then(data => this.setState({
-    //     art: { records: [...this.state.art.records, data.records] }
-    //   }))
-    //   .catch(err => console.error(err))
-  }
-
   fetchAllColors = () => {
     this.setState({ isLoading: true })
     getAllColors()
@@ -131,7 +121,7 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.art);
+    console.log(this.state.isLoading);
     if (this.state.isLoading) {
       return (
         <p className='loading'>
@@ -173,7 +163,7 @@ class App extends React.Component {
           <Route path='/:undefined'>
             <section className='no-faves'>
               <h1>page not found</h1>
-              <NavLink to='/' className='home-nav'>home</NavLink>
+              <Link to='/' className='home-nav'>home</Link>
             </section>
           </Route>
         </Switch>

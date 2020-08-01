@@ -1,14 +1,14 @@
 import React from 'react';
 import './Gallery.css';
 
-import { NavLink, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Gallery = (props) => {
   if (props.art) {
     return (
       <div style={{ backgroundColor: props.currentColor, textAlign: "center" }}>
-        <NavLink to='/' className='home-btn'>home</NavLink>
+        <Link to='/' className='home-btn'>home</Link>
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
         <section className='gallery'>
           {props.art.records.map(piece => {
@@ -28,9 +28,9 @@ const Gallery = (props) => {
                 onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
                   {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
               </button>
-              <NavLink to={`/piece/${piece.objectid}`}>
+              <Link to={`/piece/${piece.objectid}`}>
                 <button className='home-nav' data-testid={props.art.records.indexOf(piece)}>about</button>
-              </NavLink>
+              </Link>
             </div>
           </article>
         )

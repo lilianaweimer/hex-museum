@@ -2,14 +2,14 @@ import React from 'react';
 import './Favorites.css';
 import Trend from '../Trend/Trend';
 
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Favorites = (props) => {
   if (props.favorites.length) {
     return (
       <div style={{ textAlign: "center", height: '100vh' }}>
-        <NavLink to='/' className='home-btn'>home</NavLink>
+        <Link to='/' className='home-btn'>home</Link>
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
         <h1>your favorites and trends</h1>
         <section className='trends'>
@@ -37,9 +37,9 @@ const Favorites = (props) => {
                 onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
                   {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
               </button>
-              <NavLink to={`/piece/${piece.objectid}`}>
+              <Link to={`/piece/${piece.objectid}`}>
                 <button className='home-nav' data-testid={piece.objectid}>about</button>
-              </NavLink>
+              </Link>
             </div>
           </article>
         )
@@ -54,7 +54,7 @@ const Favorites = (props) => {
         style={{ backgroundColor: props.color, textAlign: "center" }}
       >
         <h1>no favorites yet!</h1>
-        <NavLink to='/' className='home-btn'>home</NavLink>
+        <Link to='/' className='home-btn'>home</Link>
       </section>
     )
   }
