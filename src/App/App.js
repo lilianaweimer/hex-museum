@@ -23,7 +23,7 @@ class App extends React.Component {
       todaysColor: {},
       art: {},
       colors: {},
-      favorites: [mockFavorites],
+      favorites: mockFavorites,
       currentColor: null,
       error: null,
     }

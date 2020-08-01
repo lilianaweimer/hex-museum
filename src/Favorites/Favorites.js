@@ -8,13 +8,16 @@ import PropTypes from 'prop-types';
 const Favorites = (props) => {
   if (props.favorites.length) {
     return (
-      <div style={{ backgroundColor: props.color, textAlign: "center" }}>
+      <div style={{ textAlign: "center", height: '100vh' }}>
         <NavLink to='/' className='home-btn'>home</NavLink>
         <NavLink to='/' className='home-btn'>home</NavLink>
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
+        <section className='trends'>
+          <Trend favorites={props.favorites} type='people'/>
+          <Trend favorites={props.favorites} type='medium'/>
+          <Trend favorites={props.favorites} type='century'/>
+          <Trend favorites={props.favorites} type='culture'/>
+          <Trend favorites={props.favorites} type='color'/>
+        </section>
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
         <section className='gallery faves'>
           {props.favorites.map(piece => {
@@ -42,7 +45,6 @@ const Favorites = (props) => {
         )
     })}
       </section>
-        <button className='home-btn'>more art!</button>
       </div>
     )
   } else {
