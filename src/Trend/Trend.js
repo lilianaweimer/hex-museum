@@ -56,6 +56,8 @@ const Trend = (props) => {
         </article>
       );
     }
+  } else {
+    return null;
   }
 }
 
