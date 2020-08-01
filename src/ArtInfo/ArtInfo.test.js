@@ -3,11 +3,11 @@ import ArtInfo from './ArtInfo';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 jest.mock('../apiCalls');
 
-describe('Colors', () => {
+describe('ArtInfo', () => {
 
   const mockInfoOne = { 
     title: 'title',
@@ -38,7 +38,7 @@ describe('Colors', () => {
     technique: 'technique',
     description: null,
     images: []
-  }
+  };
 
   it('should render correctly', () =>{
     const { getByText } = render(
@@ -46,6 +46,8 @@ describe('Colors', () => {
         <ArtInfo 
           info={mockInfoOne}
           color={'color'}
+          favorites={[]}
+          toggleFavorite={jest.fn()}
         />
       </MemoryRouter>
     );
@@ -66,6 +68,8 @@ describe('Colors', () => {
         <ArtInfo 
           info={mockInfoTwo}
           color={'color'}
+          favorites={[]}
+          toggleFavorite={jest.fn()}
         />
       </MemoryRouter>
     );
@@ -79,6 +83,25 @@ describe('Colors', () => {
     expect(queryByText('century')).not.toBeInTheDocument();
     expect(queryByText('medium')).not.toBeInTheDocument();
     expect(queryByText('description')).not.toBeInTheDocument();
+  });
+
+  it('can favorite a piece', () => {
+    const mockToggleFavorite = jest.fn();
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <ArtInfo 
+          info={mockInfoOne}
+          color={'color'}
+          favorites={[]}
+          toggleFavorite={mockToggleFavorite}
+        />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(getByTestId('fave-btn'));
+
+    expect(mockToggleFavorite).toBeCalledTimes(1);
+    expect(mockToggleFavorite).toBeCalledWith(mockInfoOne, false)
   });
 
 });

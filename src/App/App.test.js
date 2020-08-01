@@ -67,7 +67,7 @@ describe('App', () => {
     }
   ]});
 
-  it('should render the loading message before mounting', () => {
+  it('should render the loading message before componentDidMount fetch', () => {
     const { getByText } = render(
       <MemoryRouter>
         <App />
@@ -79,7 +79,7 @@ describe('App', () => {
     expect(loading).toBeInTheDocument();
   });
   
-  it('should render correctly after mounting', async () => {
+  it('should render correctly after componentDidMount fetch', async () => {
     const { getByText } = render(
       <MemoryRouter>
         <App />
@@ -120,8 +120,8 @@ describe('App', () => {
     expect(artistTwo).toBeInTheDocument();
   });
 
-  it.skip('should be able to go to a specific art page from today\'s gallery', async () => {
-    const { getByText, findAllByTestId, debug } = render(
+  it('should be able to go to a specific art page from today\'s gallery', async () => {
+    const { getByText, getByTestId } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
@@ -131,13 +131,13 @@ describe('App', () => {
     
     fireEvent.click(todaysGallery);
     
-    const aboutButton = await waitFor(() => findAllByTestId('1082297'));
+    const aboutButton = await waitFor(() => getByTestId('2'));
 
     fireEvent.click(aboutButton);
-    debug()
-    // const description = await waitFor(() => getByText('description'));
+    
+    const description = await waitFor(() => getByText('description'));
 
-    // expect(description).toBeInTheDocument();
+    expect(description).toBeInTheDocument();
   }); 
 
   it('should be able to go to the all colors page', async () => {
@@ -158,6 +158,38 @@ describe('App', () => {
     expect(colorOne).toBeInTheDocument();
     expect(colorTwo).toBeInTheDocument();
     expect(colorThree).toBeInTheDocument();
+  });
+
+  it('should be able to go to a piece\'s info page from the all colors page', async () => {
+    const { getByText, getByTestId } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    
+    fireEvent.click(await waitFor(() => getByText('pick another color')));
+    
+    fireEvent.click(await waitFor(() => getByText('color one')));
+
+    expect(await waitFor(() => getByText('piece1'))).toBeInTheDocument();
+
+    fireEvent.click(getByTestId('2'));
+
+    expect(getByText('artist: Leo D.V.')).toBeInTheDocument();
+  });
+
+  it('should be able to go to the favorites page', async () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    const favorites = await waitFor(() => getByText('view my gallery'));
+    
+    fireEvent.click(favorites);
+    
+    expect(getByText('no favorites yet!')).toBeInTheDocument();
   });
 
 });

@@ -1,22 +1,22 @@
 import React from 'react';
-import './Gallery.css';
+import './Favorites.css';
 
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Gallery = (props) => {
-  if (props.art) {
+const Favorites = (props) => {
+  if (props.favorites.length) {
     return (
-      <div style={{ backgroundColor: props.currentColor, textAlign: "center" }}>
+      <div style={{ backgroundColor: props.color, textAlign: "center" }}>
         <NavLink to='/' className='home-btn'>home</NavLink>
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
-        <section className='gallery'>
-          {props.art.records.map(piece => {
+        <section className='gallery faves'>
+          {props.favorites.map(piece => {
         return (
             <article className='art-icle' key={piece.objectid}>
             <img 
               className='art-img' 
-              src={piece.primaryimageurl ? piece.primaryimageurl : require('./lostimg.jpg')} 
+              src={piece.primaryimageurl ? piece.primaryimageurl : require('../Gallery/lostimg.jpg')} 
               alt={piece.title}
             />
             <div className='gallery-didactic'>
@@ -24,12 +24,12 @@ const Gallery = (props) => {
               <p className='gallery-info'>{piece.people ? piece.people[0].displayname : 'unknown artist'}</p>
               <button 
                 className='home-nav'
-                data-testid={`fave${props.art.records.indexOf(piece)}`} 
+                data-testid={props.favorites.indexOf(piece)} 
                 onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
                   {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
               </button>
               <NavLink to={`/piece/${piece.objectid}`}>
-                <button className='home-nav' data-testid={props.art.records.indexOf(piece)}>about</button>
+                <button className='home-nav' data-testid={piece.objectid}>about</button>
               </NavLink>
             </div>
           </article>
@@ -40,16 +40,22 @@ const Gallery = (props) => {
       </div>
     )
   } else {
-    return <Redirect to='/error'/>
+    return (
+      <section 
+        className='no-faves' 
+        style={{ backgroundColor: props.color, textAlign: "center" }}
+      >
+        <h1>no favorites yet!</h1>
+        <NavLink to='/' className='home-btn'>home</NavLink>
+      </section>
+    )
   }
 }
 
-export default Gallery;
+export default Favorites;
 
-Gallery.propTypes = {
-  art: PropTypes.object,
-  currentColor: PropTypes.string,
-  getNewPiece: PropTypes.func,
+Favorites.propTypes = {
   favorites: PropTypes.array,
   toggleFavorite: PropTypes.func,
+  color: PropTypes.string,
 }

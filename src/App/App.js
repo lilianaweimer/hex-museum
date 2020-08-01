@@ -6,8 +6,9 @@ import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
+import Favorites from '../Favorites/Favorites';
 
-import { fetchTodaysColor, getAllColors, getArt, getReplacement } from '../apiCalls';
+import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ class App extends React.Component {
       todaysColor: {},
       art: {},
       colors: {},
+      favorites: [],
       currentColor: null,
       error: null,
     }
@@ -47,19 +49,23 @@ class App extends React.Component {
       ? <Gallery 
           art={this.state.art} 
           currentColor={this.state.currentColor} 
-          getNewPiece={this.getNewPiece} 
+          getNewPiece={this.getNewPiece}
+          favorites={this.state.favorites}
+          toggleFavorite={this.toggleFavorite} 
         /> 
       : <Redirect to='/'/>;
   }
 
   loadArtInfo = (routeProps) => {
-    if (Object.keys(this.state.art).length) {
+    if (Object.keys(this.state.art.records).length) {
       let artId = Number(routeProps.match.params.id);
-      let foundArt = this.state.art.records.find(piece => piece.id === artId);
+      let foundArt = this.state.art.records.find(piece => piece.objectid === artId);
       return (foundArt ? 
         <ArtInfo 
           info={foundArt} 
-          color={this.state.currentColor}/> : 
+          color={this.state.currentColor}
+          favorites={this.state.favorites}
+          toggleFavorite={this.toggleFavorite}/> : 
         <Error />
       );
     } else {
@@ -86,14 +92,14 @@ class App extends React.Component {
   }
 
   getNewPiece = (color, id) => {
-    let art = this.state.art.records;
-    let toRemove = art.find(art => art.objectid === id)
-    art.splice(art.indexOf(toRemove), 1)
-    getReplacement(color)
-      .then(data => this.setState({
-        art: { records: [...this.state.art.records, data.records] }
-      }))
-      .catch(err => console.error(err))
+    // let art = this.state.art.records;
+    // let toRemove = art.find(art => art.objectid === id)
+    // art.splice(art.indexOf(toRemove), 1)
+    // getReplacement(color)
+    //   .then(data => this.setState({
+    //     art: { records: [...this.state.art.records, data.records] }
+    //   }))
+    //   .catch(err => console.error(err))
   }
 
   fetchAllColors = () => {
@@ -104,6 +110,13 @@ class App extends React.Component {
         colors: data
       }))
       .catch(err => console.error(err))
+  }
+
+  toggleFavorite = (piece, isFavorite) => {
+    isFavorite ? 
+    this.setState({ favorites: this.state.favorites.filter(favorite => {
+      return piece.objectid !== favorite.objectid}) }) :
+    this.setState({ favorites: [...this.state.favorites, piece]})
   }
 
   getDayOfYear = () => {
@@ -143,6 +156,13 @@ class App extends React.Component {
           <Route path='/piece/:id' render={(routeProps) => this.loadArtInfo(routeProps)}/>
           <Route path='/error'>
             <Error />
+          </Route>
+          <Route path='/favorites'>
+            <Favorites 
+              favorites={this.state.favorites}
+              toggleFavorite={this.toggleFavorite}
+              color={this.state.todaysColor.color}
+            />
           </Route>
         </Switch>
       );

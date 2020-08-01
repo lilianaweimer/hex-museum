@@ -3,9 +3,8 @@ import Home from './Home';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { fetchTodaysColor } from '../apiCalls';
 jest.mock('../apiCalls');
 
 describe('Home', () => {
@@ -56,7 +55,7 @@ describe('Home', () => {
 
   it('should fire a function if view today\'s gallery is clicked', () => {
     const mockFetchArt = jest.fn();
-    const { getByText, debug } = render(
+    const { getByText } = render(
       <MemoryRouter>
         <Home 
           todaysColor={{
@@ -80,7 +79,7 @@ describe('Home', () => {
 
   it('should fire a function if pick another color is clicked', () => {
     const mockFetchAllColors = jest.fn();
-    const { getByText, debug } = render(
+    const { getByText } = render(
       <MemoryRouter>
         <Home 
           todaysColor={{

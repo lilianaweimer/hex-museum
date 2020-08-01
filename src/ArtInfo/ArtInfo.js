@@ -31,7 +31,12 @@ const ArtInfo = (props) => {
         <p>{info.medium}</p>
         <p>{info.technique}</p>
         <p>{info.description}</p>
-        <button className='home-nav'>add to favorites</button>
+        <button 
+          className='home-nav'
+          data-testid='fave-btn' 
+          onClick={() => props.toggleFavorite(info, props.favorites.includes(info))}>
+            {props.favorites.includes(info) ? 'remove from favorites' : 'add to favorites'}
+        </button>
       </article>
       {info.images ? info.images.map(image => {
         return <img
@@ -51,5 +56,7 @@ export default ArtInfo;
 
 ArtInfo.propTypes = {
   art: PropTypes.object,
-  color: PropTypes.string
+  color: PropTypes.string,
+  favorites: PropTypes.array,
+  toggleFavorites: PropTypes.func,
 }
