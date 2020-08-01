@@ -1,3 +1,6 @@
+PLANNING DOCUMENT: https://docs.google.com/document/d/1Ve25LhrlYxBDOE19E_oWNYbXL6NshcH70mV6A9lUlOw/edit?usp=sharing
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
