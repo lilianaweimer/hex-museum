@@ -67,7 +67,7 @@ describe('App', () => {
     }
   ]});
 
-  it('should render the loading message before mounting', () => {
+  it('should render the loading message before componentDidMount fetch', () => {
     const { getByText } = render(
       <MemoryRouter>
         <App />
@@ -79,7 +79,7 @@ describe('App', () => {
     expect(loading).toBeInTheDocument();
   });
   
-  it('should render correctly after mounting', async () => {
+  it('should render correctly after componentDidMount fetch', async () => {
     const { getByText } = render(
       <MemoryRouter>
         <App />
@@ -121,7 +121,7 @@ describe('App', () => {
   });
 
   it('should be able to go to a specific art page from today\'s gallery', async () => {
-    const { getByText, getByTestId, debug } = render(
+    const { getByText, getByTestId } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
