@@ -23,7 +23,8 @@ const Gallery = (props) => {
               <p className='gallery-title gallery-info'>{piece.title ? piece.title : 'no title'}</p>
               <p className='gallery-info'>{piece.people ? piece.people[0].displayname : 'unknown artist'}</p>
               <button 
-                className='home-nav' 
+                className='home-nav'
+                data-testid={`fave${props.art.records.indexOf(piece)}`} 
                 onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
                   {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
               </button>

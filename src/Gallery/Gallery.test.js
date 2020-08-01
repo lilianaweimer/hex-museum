@@ -3,11 +3,11 @@ import Gallery from './Gallery';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 jest.mock('../apiCalls');
 
-describe('Colors', () => {
+describe('Gallery', () => {
 
   const mockArt = { records: [
     {
@@ -25,8 +25,28 @@ describe('Colors', () => {
       people: [{
         displayname: 'artist2'
       }]
+    },
+    { 
+      objectid: 1082297,
+      title: 'title',
+      primaryimageurl: 'url.png',
+      people: [{
+        role: 'artist',
+        displayname: 'Leo D.V.'
+      }],
+      culture: 'culture',
+      century: 'century',
+      period: 'period',
+      medium: 'medium', 
+      technique: 'technique',
+      description: 'description',
+      images: [{
+        baseimageurl: 'url2.jpg'
+      }]
     }
-  ]}
+  ]};
+  
+  const mockFavorites = [];
 
   it('should render correctly', () =>{
     const { getByText } = render(
@@ -35,6 +55,8 @@ describe('Colors', () => {
           art={mockArt}
           currentColor={'color'}
           getNewPiece={jest.fn()}
+          favorites={mockFavorites}
+          toggleFavorite={jest.fn()}
         />
       </MemoryRouter>
     );
@@ -52,6 +74,8 @@ describe('Colors', () => {
           art={null}
           currentColor={'color'}
           getNewPiece={jest.fn()}
+          favorites={mockFavorites}
+          toggleFavorite={jest.fn()}
         />
       </MemoryRouter>
     );
@@ -60,6 +84,26 @@ describe('Colors', () => {
     expect(queryByText('artist1')).not.toBeInTheDocument();
     expect(queryByText('piece2')).not.toBeInTheDocument();
     expect(queryByText('artist2')).not.toBeInTheDocument();
+  });
+
+  it('should be able to favorite a piece from gallery', () =>{
+    const mockToggleFavorite = jest.fn();
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <Gallery 
+          art={mockArt}
+          currentColor={'color'}
+          getNewPiece={jest.fn()}
+          favorites={mockFavorites}
+          toggleFavorite={mockToggleFavorite}
+        />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(getByTestId('fave1'));
+
+    expect(mockToggleFavorite).toBeCalledTimes(1);
+    expect(mockToggleFavorite).toBeCalledWith(mockArt.records[1], false)
   });
 
 });

@@ -55,7 +55,7 @@ describe('Home', () => {
 
   it('should fire a function if view today\'s gallery is clicked', () => {
     const mockFetchArt = jest.fn();
-    const { getByText, debug } = render(
+    const { getByText } = render(
       <MemoryRouter>
         <Home 
           todaysColor={{
@@ -79,7 +79,7 @@ describe('Home', () => {
 
   it('should fire a function if pick another color is clicked', () => {
     const mockFetchAllColors = jest.fn();
-    const { getByText, debug } = render(
+    const { getByText } = render(
       <MemoryRouter>
         <Home 
           todaysColor={{

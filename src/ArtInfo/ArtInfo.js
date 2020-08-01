@@ -32,7 +32,8 @@ const ArtInfo = (props) => {
         <p>{info.technique}</p>
         <p>{info.description}</p>
         <button 
-          className='home-nav' 
+          className='home-nav'
+          data-testid='fave-btn' 
           onClick={() => props.toggleFavorite(info, props.favorites.includes(info))}>
             {props.favorites.includes(info) ? 'remove from favorites' : 'add to favorites'}
         </button>
