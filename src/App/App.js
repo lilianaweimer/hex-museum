@@ -8,7 +8,7 @@ import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
 import Favorites from '../Favorites/Favorites';
 
-import { fetchTodaysColor, getAllColors, getArt, getReplacement } from '../apiCalls';
+import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
