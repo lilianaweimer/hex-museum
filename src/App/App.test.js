@@ -160,4 +160,22 @@ describe('App', () => {
     expect(colorThree).toBeInTheDocument();
   });
 
+  it('should be able to go to the all colors page', async () => {
+    const { getByText, getByTestId } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    
+    fireEvent.click(await waitFor(() => getByText('pick another color')));
+    
+    fireEvent.click(await waitFor(() => getByText('color one')));
+
+    expect(await waitFor(() => getByText('piece1'))).toBeInTheDocument();
+
+    fireEvent.click(getByTestId('2'));
+
+    expect(getByText('artist: Leo D.V.')).toBeInTheDocument();
+  });
+
 });
