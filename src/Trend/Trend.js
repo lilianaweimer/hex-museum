@@ -39,21 +39,23 @@ const Trend = (props) => {
   }, {})
   let sorted = Object.entries(itemsFreq).sort((a, b) => b[1] - a[1]);
 
-  if (props.type === 'color') {
-    return <ColorTrend sorted={sorted} />
-  } else {
-    return (
-      <article className='trend'>
-        <h3>{props.type === 'people' ? 'artist' : props.type}</h3>
-        <ol className='trend-list'>
-          {sorted[0] ? <li>{sorted[0][0]}</li> : null}
-          {sorted[1] ? <li>{sorted[1][0]}</li> : null}
-          {sorted[2] ? <li>{sorted[2][0]}</li> : null}
-          {sorted[3] ? <li>{sorted[3][0]}</li> : null}
-          {sorted[4] ? <li>{sorted[4][0]}</li> : null}
-        </ol>
-      </article>
-    );
+  if (sorted.length) {
+    if (props.type === 'color') {
+      return <ColorTrend sorted={sorted} />
+    } else {
+      return (
+        <article className='trend'>
+          <h3>{props.type === 'people' ? 'artist' : props.type}</h3>
+          <ol className='trend-list'>
+            {sorted[0] ? <li>{sorted[0][0]}</li> : null}
+            {sorted[1] ? <li>{sorted[1][0]}</li> : null}
+            {sorted[2] ? <li>{sorted[2][0]}</li> : null}
+            {sorted[3] ? <li>{sorted[3][0]}</li> : null}
+            {sorted[4] ? <li>{sorted[4][0]}</li> : null}
+          </ol>
+        </article>
+      );
+    }
   }
 }
 
