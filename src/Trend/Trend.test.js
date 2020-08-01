@@ -1,5 +1,6 @@
 import React from 'react';
 import Trend from './Trend';
+import ColorTrend from './ColorTrend';
 
 import mockFavorites from '../Favorites/mockFavorites';
 
@@ -9,7 +10,7 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 jest.mock('../apiCalls');
 
-describe('Colors', () => {
+describe('Trend', () => {
 
   it('should render correctly for people', () =>{
     const { getByText } = render(
@@ -83,6 +84,55 @@ describe('Colors', () => {
     expect(queryByText('color')).not.toBeInTheDocument();
     expect(queryByText('century')).not.toBeInTheDocument();
     expect(queryByText('technique')).not.toBeInTheDocument();
+
+  });
+
+});
+
+describe('ColorTrend', () => {
+
+  it('should render correctly', () =>{
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <ColorTrend 
+          sorted={[
+            ['#c8c8af', 'x'],
+            ['#afafaf', 'blah blah'],
+            ['#afaf96', 'this is not a color'],
+            ['#4b4b4b', 'x'],
+            ['#646464', 'x'],
+            ['past index 4', 'so it should not show up']
+          ]}
+        />
+      </MemoryRouter>
+    );
+
+    expect(getByText('color')).toBeInTheDocument();
+    expect(getByText('(#c8c8af)')).toBeInTheDocument();
+    expect(getByText('(#afafaf)')).toBeInTheDocument();
+    expect(getByText('(#afaf96)')).toBeInTheDocument();
+    expect(getByText('(#4b4b4b)')).toBeInTheDocument();
+    expect(getByText('(#646464)')).toBeInTheDocument();
+
+    expect(queryByText('x')).not.toBeInTheDocument();
+    expect(queryByText('blah blah')).not.toBeInTheDocument();
+    expect(queryByText('past index 4')).not.toBeInTheDocument();
+    expect(queryByText('so it should not show up')).not.toBeInTheDocument();
+    
+  });
+
+  it('should not render without sorted', () =>{
+    const { queryByText } = render(
+      <MemoryRouter>
+        <ColorTrend 
+          sorted={null}
+        />
+      </MemoryRouter>
+    );
+
+    expect(queryByText('color')).not.toBeInTheDocument();
+    expect(queryByText('(#c8c8af)')).not.toBeInTheDocument();
+    expect(queryByText('blah blah')).not.toBeInTheDocument();
 
   });
 
