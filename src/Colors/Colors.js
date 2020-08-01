@@ -19,7 +19,7 @@ const Colors = (props) => {
                 key={color.id}
                 id={color.hex}
                 style={{backgroundColor: color.hex}}
-                data-testid='color-nav'
+                data-testid={props.colors.indexOf(color)}
               >
                 <p className='color-info'>{color.name}</p>
                 <p className='color-info'>{color.hex}</p>

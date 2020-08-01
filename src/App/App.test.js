@@ -120,8 +120,8 @@ describe('App', () => {
     expect(artistTwo).toBeInTheDocument();
   });
 
-  it.skip('should be able to go to a specific art page from today\'s gallery', async () => {
-    const { getByText, findAllByTestId, debug } = render(
+  it('should be able to go to a specific art page from today\'s gallery', async () => {
+    const { getByText, getByTestId, debug } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
@@ -131,13 +131,13 @@ describe('App', () => {
     
     fireEvent.click(todaysGallery);
     
-    const aboutButton = await waitFor(() => findAllByTestId('1082297'));
+    const aboutButton = await waitFor(() => getByTestId('2'));
 
     fireEvent.click(aboutButton);
-    debug()
-    // const description = await waitFor(() => getByText('description'));
+    
+    const description = await waitFor(() => getByText('description'));
 
-    // expect(description).toBeInTheDocument();
+    expect(description).toBeInTheDocument();
   }); 
 
   it('should be able to go to the all colors page', async () => {

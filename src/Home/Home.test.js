@@ -3,9 +3,8 @@ import Home from './Home';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { fetchTodaysColor } from '../apiCalls';
 jest.mock('../apiCalls');
 
 describe('Home', () => {

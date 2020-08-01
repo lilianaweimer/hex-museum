@@ -28,7 +28,7 @@ const Gallery = (props) => {
                   {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
               </button>
               <NavLink to={`/piece/${piece.objectid}`}>
-                <button className='home-nav' data-testid={piece.objectid}>about</button>
+                <button className='home-nav' data-testid={props.art.records.indexOf(piece)}>about</button>
               </NavLink>
             </div>
           </article>

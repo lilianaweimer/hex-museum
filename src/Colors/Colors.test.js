@@ -57,23 +57,24 @@ describe('Colors', () => {
     expect(queryByText('67890')).not.toBeInTheDocument();
   });
 
-  it.skip('should fire a function when a color is clicked', () => {
+  it('should fire a function when a color is clicked', () => {
     const mockFetchArt = jest.fn();
-    const { getAllByTestId } = render(
+    const { getByTestId } = render(
       <MemoryRouter>
         <Colors 
           colors={mockColors}
-          fetchArt={jest.fn()}
+          fetchArt={mockFetchArt}
+          setCurrentColor={jest.fn()}
         />
       </MemoryRouter>
     );
 
-    const color = getAllByTestId('color-nav');
+    const color = getByTestId('0');
 
     fireEvent.click(color);
 
     expect(mockFetchArt).toHaveBeenCalledTimes(1);
-    expect(mockFetchArt).toHaveBeenCalledWith(54321);
+    expect(mockFetchArt).toHaveBeenCalledWith(9876);
   });
 
 });
