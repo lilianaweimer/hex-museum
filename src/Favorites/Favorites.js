@@ -10,15 +10,15 @@ const Favorites = (props) => {
     return (
       <div style={{ textAlign: "center", height: '100vh' }}>
         <NavLink to='/' className='home-btn'>home</NavLink>
-        <NavLink to='/' className='home-btn'>home</NavLink>
+        <button className='home-btn' onClick={() => window.history.back()}>back</button>
+        <h1>your favorites and trends</h1>
         <section className='trends'>
           <Trend favorites={props.favorites} type='people'/>
-          <Trend favorites={props.favorites} type='medium'/>
+          <Trend favorites={props.favorites} type='technique'/>
           <Trend favorites={props.favorites} type='century'/>
           <Trend favorites={props.favorites} type='culture'/>
           <Trend favorites={props.favorites} type='color'/>
         </section>
-        <button className='home-btn' onClick={() => window.history.back()}>back</button>
         <section className='gallery faves'>
           {props.favorites.map(piece => {
         return (
