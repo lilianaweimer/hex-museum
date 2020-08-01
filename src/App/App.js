@@ -23,7 +23,7 @@ class App extends React.Component {
       todaysColor: {},
       art: {},
       colors: {},
-      favorites: mockFavorites,
+      favorites: [],
       currentColor: null,
       error: null,
     }
@@ -39,7 +39,7 @@ class App extends React.Component {
     (error) => {
       console.error(error)
       this.setState({
-        isLoaded: true,
+        isLoading: false,
         error: error
       })
     }
@@ -133,7 +133,11 @@ class App extends React.Component {
   render() {
     // console.log(this.state.art);
     if (this.state.isLoading) {
-      return (<p className='loading'>Loading...</p>)
+      return (
+        <p className='loading'>
+          <img src={require('./movingblocksloading.gif')} alt='loading'/>
+        </p>
+      )
     } else if (this.state.error) {
       return <Error error={this.state.error}/>
     } else if (!this.state.isLoading && !this.state.error) {
