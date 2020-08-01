@@ -25,3 +25,7 @@
 .trend-list {
   text-align: left;
 }
+
+.empty-color-space {
+  border: 1px solid black;
+}

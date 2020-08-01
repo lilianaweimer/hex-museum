@@ -1,5 +1,8 @@
 import React from 'react';
+import './Trend.css';
 import PropTypes from 'prop-types';
+
+import ColorTrend from './ColorTrend';
 
 const Trend = (props) => {
   let items = [];
@@ -34,22 +37,24 @@ const Trend = (props) => {
     }
     return freq;
   }, {})
-  // let freqKeys = Object.keys(itemsFreq)
-  // .sort(function(a,b){return itemsFreq[a]-itemsFreq[b]})
   let sorted = Object.entries(itemsFreq).sort((a, b) => b[1] - a[1]);
-  console.log(sorted);
-  return (
-    <article className='trend'>
-      <h3>{props.type === 'people' ? 'artist' : props.type}</h3>
-      <ol className='trend-list'>
-        {sorted[0] ? <li>{sorted[0][0]}</li> : null}
-        {sorted[1] ? <li>{sorted[1][0]}</li> : null}
-        {sorted[2] ? <li>{sorted[2][0]}</li> : null}
-        {sorted[3] ? <li>{sorted[3][0]}</li> : null}
-        {sorted[4] ? <li>{sorted[4][0]}</li> : null}
-      </ol>
-    </article>
-  );
+
+  if (props.type === 'color') {
+    return <ColorTrend sorted={sorted} />
+  } else {
+    return (
+      <article className='trend'>
+        <h3>{props.type === 'people' ? 'artist' : props.type}</h3>
+        <ol className='trend-list'>
+          {sorted[0] ? <li>{sorted[0][0]}</li> : null}
+          {sorted[1] ? <li>{sorted[1][0]}</li> : null}
+          {sorted[2] ? <li>{sorted[2][0]}</li> : null}
+          {sorted[3] ? <li>{sorted[3][0]}</li> : null}
+          {sorted[4] ? <li>{sorted[4][0]}</li> : null}
+        </ol>
+      </article>
+    );
+  }
 }
 
 export default Trend;
