@@ -1,5 +1,5 @@
 import React from 'react';
-import { checkPropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 const Trend = (props) => {
   let items = [];
@@ -35,3 +35,8 @@ const Trend = (props) => {
 }
 
 export default Trend;
+
+Trend.propTypes = {
+  favorites: PropTypes.array,
+  type: PropTypes.string
+}
