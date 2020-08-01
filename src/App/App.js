@@ -8,6 +8,8 @@ import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
 import Favorites from '../Favorites/Favorites';
 
+import mockFavorites from '../MockAPIData/mockFavorites';
+
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -21,7 +23,7 @@ class App extends React.Component {
       todaysColor: {},
       art: {},
       colors: {},
-      favorites: [],
+      favorites: [mockFavorites],
       currentColor: null,
       error: null,
     }
