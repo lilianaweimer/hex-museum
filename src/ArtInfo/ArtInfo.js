@@ -10,7 +10,6 @@ const ArtInfo = (props) => {
   return (
     <div style={{ backgroundColor: props.color }}>
       <section className='piece'>
-      <NavLink to='/' className='home-btn'>home</NavLink>
       <button className='home-btn' onClick={() => window.history.back()}>back</button>
       <section>
       <h1 className='info-didactic'>{info.title}</h1>

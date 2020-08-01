@@ -1,5 +1,6 @@
 import React from 'react';
 import './Favorites.css';
+import Trend from '../Trend/Trend';
 
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -9,6 +10,11 @@ const Favorites = (props) => {
     return (
       <div style={{ backgroundColor: props.color, textAlign: "center" }}>
         <NavLink to='/' className='home-btn'>home</NavLink>
+        <NavLink to='/' className='home-btn'>home</NavLink>
+        <Trend />
+        <Trend />
+        <Trend />
+        <Trend />
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
         <section className='gallery faves'>
           {props.favorites.map(piece => {
