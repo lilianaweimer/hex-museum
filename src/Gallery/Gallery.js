@@ -1,15 +1,16 @@
 import React from 'react';
 import './Gallery.css';
 
-import { NavLink, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Gallery = (props) => {
   if (props.art) {
     return (
       <div style={{ backgroundColor: props.currentColor, textAlign: "center" }}>
-        <NavLink to='/' className='home-btn'>home</NavLink>
+        <Link to='/' className='home-btn'>home</Link>
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
+        <h1 className='gallery-welcome'>welcome to the {props.currentColor} gallery</h1>
         <section className='gallery'>
           {props.art.records.map(piece => {
         return (
@@ -28,15 +29,15 @@ const Gallery = (props) => {
                 onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
                   {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
               </button>
-              <NavLink to={`/piece/${piece.objectid}`}>
+              <Link to={`/piece/${piece.objectid}`}>
                 <button className='home-nav' data-testid={props.art.records.indexOf(piece)}>about</button>
-              </NavLink>
+              </Link>
             </div>
           </article>
         )
     })}
       </section>
-        <button className='home-btn'>more art!</button>
+        <button className='home-btn' onClick={() => props.getMoreArt(props.color)}>more art!</button>
       </div>
     )
   } else {
@@ -52,4 +53,5 @@ Gallery.propTypes = {
   getNewPiece: PropTypes.func,
   favorites: PropTypes.array,
   toggleFavorite: PropTypes.func,
+  getMoreArt: PropTypes.func,
 }

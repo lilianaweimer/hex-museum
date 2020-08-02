@@ -34,7 +34,8 @@
 }
 
 .art-icle:hover > div {
-  width: 300px;
+  width: 200px;
+  height: 270px;
   position: relative;
   bottom: 310px;
   font-family: sans-serif;
@@ -43,6 +44,7 @@
   font-size: 20px;
   display: block;
   color: white!important;
+  overflow-y: auto;
 }
 
 .gallery-info {
@@ -51,4 +53,12 @@
 
 .art-icle:hover > img {
   opacity: 0.33;
+}
+
+.gallery-welcome {
+  background-color: white;
+  border: 10px solid black;
+  padding: 5px;
+  width: max-content;
+  margin: 10px auto;
 }

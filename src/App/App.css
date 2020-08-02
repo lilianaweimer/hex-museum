@@ -8,6 +8,11 @@ NavLink {
   text-decoration: none!important;
 }
 
+.loading {
+  margin: 10% auto;
+  text-align: center;
+}
+
 /* .App {
   text-align: center;
 }

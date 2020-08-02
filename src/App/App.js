@@ -8,9 +8,11 @@ import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
 import Favorites from '../Favorites/Favorites';
 
+import mockFavorites from '../MockAPIData/mockFavorites';
+
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -37,7 +39,7 @@ class App extends React.Component {
     (error) => {
       console.error(error)
       this.setState({
-        isLoaded: true,
+        isLoading: false,
         error: error
       })
     }
@@ -51,7 +53,9 @@ class App extends React.Component {
           currentColor={this.state.currentColor} 
           getNewPiece={this.getNewPiece}
           favorites={this.state.favorites}
-          toggleFavorite={this.toggleFavorite} 
+          toggleFavorite={this.toggleFavorite}
+          isLoading={this.state.isLoading}
+          getMoreArt={this.getMoreArt} 
         /> 
       : <Redirect to='/'/>;
   }
@@ -73,13 +77,21 @@ class App extends React.Component {
     }
   }
 
-  fetchArt = (color, id) => {
-    this.setState({ 
-      isLoading: true,
-    })
+  fetchArt = (color) => {
+    this.setState({ isLoading: true })
     getArt(color, apikey)
     .then(data => this.setState({
       art: data,
+      isLoading: false,
+    }))
+    .catch(err => console.error(err))
+  }
+
+  getMoreArt = (color) => {
+    this.setState({ isLoading: true })
+    getArt(color, apikey)
+    .then(data => this.setState({
+      art: { records: [...this.state.art.records, ...data.records]},
       isLoading: false,
     }))
     .catch(err => console.error(err))
@@ -89,17 +101,6 @@ class App extends React.Component {
     this.setState({
       currentColor: color
     })
-  }
-
-  getNewPiece = (color, id) => {
-    // let art = this.state.art.records;
-    // let toRemove = art.find(art => art.objectid === id)
-    // art.splice(art.indexOf(toRemove), 1)
-    // getReplacement(color)
-    //   .then(data => this.setState({
-    //     art: { records: [...this.state.art.records, data.records] }
-    //   }))
-    //   .catch(err => console.error(err))
   }
 
   fetchAllColors = () => {
@@ -129,9 +130,12 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.art);
     if (this.state.isLoading) {
-      return (<p className='loading'>Loading...</p>)
+      return (
+        <p className='loading'>
+          <img src={require('./movingblocksloading.gif')} alt='loading'/>
+        </p>
+      )
     } else if (this.state.error) {
       return <Error error={this.state.error}/>
     } else if (!this.state.isLoading && !this.state.error) {
@@ -163,6 +167,12 @@ class App extends React.Component {
               toggleFavorite={this.toggleFavorite}
               color={this.state.todaysColor.color}
             />
+          </Route>
+          <Route path='/:undefined'>
+            <section className='no-faves'>
+              <h1>page not found</h1>
+              <Link to='/' className='home-nav'>home</Link>
+            </section>
           </Route>
         </Switch>
       );
