@@ -138,8 +138,10 @@ class App extends React.Component {
   }
 
   retrieveFavoritesFromStorage = () => {
-    let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
-    this.setState({ favorites: [...storedFavorites] })
+    if (localStorage.getItem('favorites') !== null) {
+      let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+      this.setState({ favorites: [...storedFavorites] })
+    }
   }
 
   getDayOfYear = () => {
