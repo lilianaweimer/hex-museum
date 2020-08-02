@@ -1,5 +1,7 @@
 import React from 'react';
 import App from './App';
+import Loading from './Loading';
+import Error from '../Error/Error';
 
 import { MemoryRouter } from 'react-router-dom';
 
@@ -210,6 +212,34 @@ describe('App', () => {
     
     expect(getByText('description')).toBeInTheDocument();
 
+  });
+
+});
+
+describe('Loading', () => {
+
+  it('should render', () => {
+    const { getByAltText } = render(
+      <MemoryRouter>
+        <Loading />
+      </MemoryRouter>
+    );
+
+    expect(getByAltText('loading')).toBeInTheDocument();
+  });
+
+});
+
+describe('Error', () => {
+
+  it('should render', () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <Error />
+      </MemoryRouter>
+    );
+
+    expect(getByText('something went wrong')).toBeInTheDocument();
   });
 
 });
