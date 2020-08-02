@@ -10,6 +10,7 @@ const Gallery = (props) => {
       <div style={{ backgroundColor: props.currentColor, textAlign: "center" }}>
         <Link to='/' className='home-btn'>home</Link>
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
+        <h1>welcome to the {props.currentColor} gallery</h1>
         <section className='gallery'>
           {props.art.records.map(piece => {
         return (
