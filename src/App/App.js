@@ -31,6 +31,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.retrieveFavoritesFromStorage()
     if (!this.state.todyasColor) {
       fetchTodaysColor(this.getDayOfYear(), apikey)
       .then(
@@ -133,8 +134,12 @@ class App extends React.Component {
   }
 
   saveFavoritesToStorage = (favorites) => {
-    console.log(favorites);
     localStorage.setItem('favorites', JSON.stringify(favorites))
+  }
+
+  retrieveFavoritesFromStorage = () => {
+    let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    this.setState({ favorites: [...storedFavorites] })
   }
 
   getDayOfYear = () => {
