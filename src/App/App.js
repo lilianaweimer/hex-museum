@@ -120,10 +120,21 @@ class App extends React.Component {
   }
 
   toggleFavorite = (piece, isFavorite) => {
-    isFavorite ? 
-    this.setState({ favorites: this.state.favorites.filter(favorite => {
-      return piece.objectid !== favorite.objectid}) }) :
-    this.setState({ favorites: [...this.state.favorites, piece]})
+    if (isFavorite) {
+      let newFavorites = this.state.favorites.filter(favorite => {
+        return piece.objectid !== favorite.objectid})
+      this.setState({ favorites: newFavorites })
+      this.saveFavoritesToStorage(newFavorites)
+    } else {
+      let newFavorites = [...this.state.favorites, piece]
+      this.setState({ favorites: newFavorites })
+      this.saveFavoritesToStorage(newFavorites)
+    }
+  }
+
+  saveFavoritesToStorage = (favorites) => {
+    console.log(favorites);
+    localStorage.setItem('favorites', JSON.stringify(favorites))
   }
 
   getDayOfYear = () => {
