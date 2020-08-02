@@ -7,6 +7,7 @@ import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
 import Favorites from '../Favorites/Favorites';
+import Loading from './Loading';
 
 import mockFavorites from '../MockAPIData/mockFavorites';
 
@@ -47,7 +48,8 @@ class App extends React.Component {
   }
 
   loadGallery = (event) => {
-    return Object.keys(this.state.art).length 
+    if (!this.state.isLoading) {
+      return Object.keys(this.state.art).length 
       ? <Gallery 
           art={this.state.art} 
           currentColor={this.state.currentColor} 
@@ -58,6 +60,9 @@ class App extends React.Component {
           getMoreArt={this.getMoreArt} 
         /> 
       : <Redirect to='/'/>;
+    } else {
+      return <Loading />
+    }
   }
 
   loadArtInfo = (routeProps) => {
@@ -132,9 +137,7 @@ class App extends React.Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <p className='loading'>
-          <img src={require('./movingblocksloading.gif')} alt='loading'/>
-        </p>
+        <Loading />
       )
     } else if (this.state.error) {
       return <Error error={this.state.error}/>
