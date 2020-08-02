@@ -6,10 +6,12 @@ import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Gallery = (props) => {
+  console.log(props.favorites);
   if (props.isLoading) {
     return <Loading />
   } else if (props.art && !props.isLoading) {
     const art = props.art.records.map(piece => {
+      let isFavorite = props.favorites.find(favorite => favorite.objectid === piece.objectid) ? true : false ;
       return (
           <article className='art-icle' key={piece.objectid}>
           <img 
@@ -23,8 +25,8 @@ const Gallery = (props) => {
             <button 
               className='home-nav'
               data-testid={`fave${props.art.records.indexOf(piece)}`} 
-              onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
-                {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
+              onClick={() => props.toggleFavorite(piece, isFavorite)}>
+                {isFavorite ? 'unfavorite' : 'favorite'}
             </button>
             <Link to={`/piece/${piece.objectid}`}>
               <button className='home-nav' data-testid={props.art.records.indexOf(piece)}>about</button>
