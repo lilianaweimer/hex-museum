@@ -10,7 +10,7 @@ const Gallery = (props) => {
       <div style={{ backgroundColor: props.currentColor, textAlign: "center" }}>
         <Link to='/' className='home-btn'>home</Link>
         <button className='home-btn' onClick={() => window.history.back()}>back</button>
-        <h1>welcome to the {props.currentColor} gallery</h1>
+        <h1 className='gallery-welcome'>welcome to the {props.currentColor} gallery</h1>
         <section className='gallery'>
           {props.art.records.map(piece => {
         return (
@@ -37,7 +37,7 @@ const Gallery = (props) => {
         )
     })}
       </section>
-        <button className='home-btn'>more art!</button>
+        <button className='home-btn' onClick={() => props.getMoreArt(props.color)}>more art!</button>
       </div>
     )
   } else {
@@ -53,4 +53,5 @@ Gallery.propTypes = {
   getNewPiece: PropTypes.func,
   favorites: PropTypes.array,
   toggleFavorite: PropTypes.func,
+  getMoreArt: PropTypes.func,
 }

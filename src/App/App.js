@@ -54,7 +54,8 @@ class App extends React.Component {
           getNewPiece={this.getNewPiece}
           favorites={this.state.favorites}
           toggleFavorite={this.toggleFavorite}
-          isLoading={this.state.isLoading} 
+          isLoading={this.state.isLoading}
+          getMoreArt={this.getMoreArt} 
         /> 
       : <Redirect to='/'/>;
   }
@@ -76,13 +77,21 @@ class App extends React.Component {
     }
   }
 
-  fetchArt = (color, id) => {
-    this.setState({ 
-      isLoading: true,
-    })
+  fetchArt = (color) => {
+    this.setState({ isLoading: true })
     getArt(color, apikey)
     .then(data => this.setState({
       art: data,
+      isLoading: false,
+    }))
+    .catch(err => console.error(err))
+  }
+
+  getMoreArt = (color) => {
+    this.setState({ isLoading: true })
+    getArt(color, apikey)
+    .then(data => this.setState({
+      art: { records: [...this.state.art.records, ...data.records]},
       isLoading: false,
     }))
     .catch(err => console.error(err))
@@ -121,7 +130,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.isLoading);
     if (this.state.isLoading) {
       return (
         <p className='loading'>
