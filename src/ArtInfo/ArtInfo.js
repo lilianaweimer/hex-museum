@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 const ArtInfo = (props) => {
   let info = props.info;
+  let isFavorite = props.favorites.find(favorite => favorite.objectid === info.objectid) ? true : false ;
   return (
     <div style={{ backgroundColor: props.color }}>
       <section className='piece'>
@@ -32,8 +33,8 @@ const ArtInfo = (props) => {
         <button 
           className='home-nav'
           data-testid='fave-btn' 
-          onClick={() => props.toggleFavorite(info, props.favorites.includes(info))}>
-            {props.favorites.includes(info) ? 'remove from favorites' : 'add to favorites'}
+          onClick={() => props.toggleFavorite(info, isFavorite)}>
+            {isFavorite ? 'remove from favorites' : 'add to favorites'}
         </button>
       </article>
       {info.images ? info.images.map(image => {
