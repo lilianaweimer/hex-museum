@@ -41,7 +41,7 @@ const Gallery = (props) => {
         <section className='gallery'>
         {art}
       </section>
-        <button className='home-btn' onClick={() => props.getMoreArt(props.color)}>more art!</button>
+        <button className='home-btn' onClick={() => props.getMoreArt(window.location.pathname)}>more art!</button>
       </div>
     )
   } else {

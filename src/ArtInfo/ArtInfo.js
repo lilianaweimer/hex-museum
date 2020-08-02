@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 const ArtInfo = (props) => {
   let info = props.info;
-  console.log(props.info.seeAlso);
   return (
     <div style={{ backgroundColor: props.color }}>
       <section className='piece'>

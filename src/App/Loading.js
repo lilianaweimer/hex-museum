@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Loading = (props) => {
+const Loading = () => {
   return (
     <p className='loading'>
           <img src={require('./movingblocksloading.gif')} alt='loading'/>

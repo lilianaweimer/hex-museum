@@ -106,4 +106,44 @@ describe('Gallery', () => {
     expect(mockToggleFavorite).toBeCalledWith(mockArt.records[1], false)
   });
 
+  it('should fire a function if \'more art\' is clicked', () => {
+    const mockMoreArt = jest.fn();
+    const { getByText } = render(
+      <MemoryRouter>
+        <Gallery 
+          art={mockArt}
+          currentColor={'color'}
+          getNewPiece={jest.fn()}
+          favorites={mockFavorites}
+          toggleFavorite={jest.fn()}
+          getMoreArt={mockMoreArt}
+        />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(getByText('more art!'));
+
+    expect(mockMoreArt).toBeCalledTimes(1);
+    expect(mockMoreArt).toBeCalledWith('/');
+  });
+
+  it('should load Loading if loading', () => {
+    const { getByAltText } = render(
+      <MemoryRouter>
+        <Gallery 
+          art={mockArt}
+          currentColor={'color'}
+          getNewPiece={jest.fn()}
+          favorites={mockFavorites}
+          toggleFavorite={jest.fn()}
+          getMoreArt={jest.fn()}
+          isLoading={true}
+        />
+      </MemoryRouter>
+    );
+
+    expect(getByAltText('loading')).toBeInTheDocument();
+  });
+
+
 });
