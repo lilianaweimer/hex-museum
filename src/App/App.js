@@ -31,20 +31,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetchTodaysColor(this.getDayOfYear(), apikey)
-    .then(
-      (data) => this.setState({
-      todaysColor: data,
-      isLoading: false
-    },
-    (error) => {
-      console.error(error)
-      this.setState({
-        isLoading: false,
-        error: error
-      })
+    if (!this.state.todyasColor) {
+      fetchTodaysColor(this.getDayOfYear(), apikey)
+      .then(
+        (data) => this.setState({
+        todaysColor: data,
+        isLoading: false
+      },
+      (error) => {
+        console.error(error)
+        this.setState({
+          isLoading: false,
+          error: error
+        })
+      }
+      ))
     }
-    ))
   }
 
   loadGallery = (event) => {

@@ -67,14 +67,14 @@ describe('App', () => {
     }
   ]});
 
-  it('should render the loading message before componentDidMount fetch', () => {
-    const { getByText } = render(
+  it('should render the loading component before componentDidMount fetch', () => {
+    const { getByAltText } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
     );
 
-    const loading = getByText('Loading...');
+    const loading = getByAltText('loading');
 
     expect(loading).toBeInTheDocument();
   });
