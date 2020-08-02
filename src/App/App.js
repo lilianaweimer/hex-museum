@@ -39,7 +39,6 @@ class App extends React.Component {
         isLoading: false
       },
       (error) => {
-        console.error(error)
         this.setState({
           isLoading: false,
           error: error

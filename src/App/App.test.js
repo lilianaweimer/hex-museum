@@ -3,7 +3,7 @@ import App from './App';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, getByTestId } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 jest.mock('../apiCalls');
@@ -190,6 +190,26 @@ describe('App', () => {
     fireEvent.click(favorites);
     
     expect(getByText('no favorites yet!')).toBeInTheDocument();
+  });
+
+  it('should be able to go to a piece\'s page from favorites', async () => {
+    const { getByText, getByTestId } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    
+    fireEvent.click(await waitFor(() => getByText('view today\'s gallery')));
+    fireEvent.click(await waitFor(() => getByTestId('fave2')));
+    fireEvent.click(getByText('home'));
+    fireEvent.click(await waitFor(() => getByText('view my gallery')));
+
+    expect(getByText('Leo D.V.')).toBeInTheDocument(); 
+
+    fireEvent.click(getByTestId("1082297"));
+    
+    expect(getByText('description')).toBeInTheDocument();
+
   });
 
 });
