@@ -15,5 +15,5 @@ const Error = (props) => {
 export default Error;
 
 Error.propTypes = {
-  error: PropTypes.object
+  error: PropTypes.string
 }

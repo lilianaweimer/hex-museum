@@ -215,6 +215,17 @@ describe('App', () => {
 
   });
 
+  it('should go to error page if no color comes back from the api', async () => {
+    fetchTodaysColor.mockResolvedValueOnce(null);
+    const { getByText } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await waitFor(() => {getByText('something went wrong')}))
+  });
+
 });
 
 describe('Loading', () => {
@@ -233,14 +244,24 @@ describe('Loading', () => {
 
 describe('Error', () => {
 
-  it('should render', () => {
+  it('should render with props', () => {
     const { getByText } = render(
       <MemoryRouter>
-        <Error />
+        <Error error={'test error!'}/>
+      </MemoryRouter>
+    );
+
+    expect(getByText('test error!')).toBeInTheDocument();
+  }); 
+
+  it('should render without props', () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <Error error={null}/>
       </MemoryRouter>
     );
 
     expect(getByText('something went wrong')).toBeInTheDocument();
-  });
+  }); 
 
 });

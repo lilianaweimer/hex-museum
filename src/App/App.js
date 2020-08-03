@@ -31,8 +31,8 @@ class App extends React.Component {
 
   componentDidMount() {
     this.retrieveFavoritesFromStorage()
-    if (!this.state.todyasColor) {
-      fetchTodaysColor(this.getDayOfYear(), apikey)
+    if (!Object.keys(this.state.todaysColor).length) {
+      fetchTodaysColor(this.getDayOfYear())
       .then(
         (data) => this.setState({
         todaysColor: data,
@@ -178,7 +178,7 @@ class App extends React.Component {
         <Loading />
       )
     } else if (this.state.error) {
-      return <Error error={this.state.error}/>
+      return <Error error={this.state.error.message}/>
     } else if (!this.state.isLoading && !this.state.error) {
       return (
         <Switch>
@@ -209,7 +209,7 @@ class App extends React.Component {
             <Favorites 
               favorites={this.state.favorites}
               toggleFavorite={this.toggleFavorite}
-              color={this.state.todaysColor.color}
+              color={this.state.todaysColor ? this.state.todaysColor.color : '#ffffff'}
             />
           </Route>
           <Route path='/:undefined'>
