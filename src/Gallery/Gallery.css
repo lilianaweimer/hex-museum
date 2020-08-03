@@ -61,3 +61,44 @@
   width: max-content;
   margin: 10px auto;
 }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .art-img,
+  .art-icle {
+    width: 85vw;
+    height: auto;
+  }
+
+  .gallery-welcome {
+    width: 85vw;
+  }
+
+  .gallery-didactic {
+    display: block;
+    font-family: sans-serif;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 20px 10px;
+    font-size: 20px;
+    color: white!important;
+    margin-top: -5px;
+  }
+
+  .art-icle:hover > div {
+    width: auto;
+    height: auto;
+    position: static;
+    bottom: 310px;
+    font-family: sans-serif;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 20px 10px;
+    font-size: 20px;
+    display: block;
+    color: white!important;
+    overflow-y: auto;
+  }
+
+  .art-icle:hover > img {
+    opacity: 100;
+  }
+  
+}
