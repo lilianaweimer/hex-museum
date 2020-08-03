@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Error = (props) => {
   return (
@@ -12,3 +13,7 @@ const Error = (props) => {
 }
 
 export default Error;
+
+Error.propTypes = {
+  error: PropTypes.object
+}
