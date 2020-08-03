@@ -25,3 +25,4 @@ yarn-error.log*
 
 apikey.js
 MockAPIData
+.env

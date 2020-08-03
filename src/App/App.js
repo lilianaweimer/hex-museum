@@ -8,6 +8,7 @@ import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
 import Favorites from '../Favorites/Favorites';
 import Loading from './Loading';
+import Footer from '../Footer/Footer';
 
 import mockFavorites from '../MockAPIData/mockFavorites';
 
@@ -52,7 +53,9 @@ class App extends React.Component {
   loadGallery = (event) => {
     if (!this.state.isLoading) {
       return Object.keys(this.state.art).length 
-      ? <Gallery 
+      ?
+      <>
+      <Gallery 
           art={this.state.art} 
           currentColor={this.state.currentColor} 
           getNewPiece={this.getNewPiece}
@@ -60,7 +63,9 @@ class App extends React.Component {
           toggleFavorite={this.toggleFavorite}
           isLoading={this.state.isLoading}
           getMoreArt={this.getMoreArt} 
-        /> 
+        />
+        <Footer /> 
+      </> 
       : <Redirect to='/'/>;
     } else {
       return <Loading />
@@ -72,11 +77,14 @@ class App extends React.Component {
       let artId = Number(routeProps.match.params.id);
       let foundArt = this.state.art.records.find(piece => piece.objectid === artId);
       return (foundArt ? 
-        <ArtInfo 
-          info={foundArt} 
-          color={this.state.currentColor}
-          favorites={this.state.favorites}
-          toggleFavorite={this.toggleFavorite}/> : 
+        <>
+          <ArtInfo 
+            info={foundArt} 
+            color={this.state.currentColor}
+            favorites={this.state.favorites}
+            toggleFavorite={this.toggleFavorite}/>
+          <Footer />
+        </> : 
         <Error />
       );
     } else {
@@ -170,6 +178,7 @@ class App extends React.Component {
               fetchAllColors={this.fetchAllColors}
               setCurrentColor={this.setCurrentColor}
             />
+            <Footer />
           </Route>
           <Route path='/gallery/:id' render={(event) => this.loadGallery(event)}/>
           <Route exact path='/colors'>
@@ -178,10 +187,12 @@ class App extends React.Component {
               fetchArt={this.fetchArt}
               setCurrentColor={this.setCurrentColor}
             />
+            <Footer />
           </Route>
           <Route path='/piece/:id' render={(routeProps) => this.loadArtInfo(routeProps)}/>
           <Route path='/error'>
             <Error />
+            <Footer />
           </Route>
           <Route path='/favorites'>
             <Favorites 
@@ -189,6 +200,7 @@ class App extends React.Component {
               toggleFavorite={this.toggleFavorite}
               color={this.state.todaysColor.color}
             />
+            <Footer />
           </Route>
           <Route path='/:undefined'>
             <section className='no-faves'>
