@@ -26,7 +26,7 @@ const Favorites = (props) => {
                 <article className='art-icle' key={piece.objectid}>
                 <img 
                   className='art-img' 
-                  src={piece.primaryimageurl ? piece.primaryimageurl : require('../Gallery/lostimg.jpg')} 
+                  src={piece.primaryimageurl ? piece.primaryimageurl : require('../Images/lostimg.jpg')} 
                   alt={piece.title}
                 />
                 <div className='gallery-didactic'>

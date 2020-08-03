@@ -84,6 +84,20 @@ class App extends React.Component {
         </> : 
         <Error />
       );
+    } else if (this.state.favorites.length) {
+      let artId = Number(routeProps.match.params.id);
+      let foundArt = this.state.favorites.find(piece => piece.objectid === artId);
+      return (foundArt ? 
+        <>
+          <ArtInfo 
+            info={foundArt} 
+            color={this.state.currentColor}
+            favorites={this.state.favorites}
+            toggleFavorite={this.toggleFavorite}/>
+          <Footer />
+        </> : 
+        <Error />
+      );
     } else {
       return <Redirect to='/'/>
     }
@@ -197,7 +211,6 @@ class App extends React.Component {
               toggleFavorite={this.toggleFavorite}
               color={this.state.todaysColor.color}
             />
-            <Footer />
           </Route>
           <Route path='/:undefined'>
             <section className='no-faves'>
