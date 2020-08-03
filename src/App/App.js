@@ -73,7 +73,7 @@ class App extends React.Component {
   }
 
   loadArtInfo = (routeProps) => {
-    if (Object.keys(this.state.art.records).length) {
+    if (this.state.art.records && Object.keys(this.state.art.records).length) {
       let artId = Number(routeProps.match.params.id);
       let foundArt = this.state.art.records.find(piece => piece.objectid === artId);
       return (foundArt ? 

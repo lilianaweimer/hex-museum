@@ -23,5 +23,17 @@
   border: 10px solid black;
   padding: 10px;
   margin: 10px auto;
-  
+}
+
+.link-to-ham {
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+  margin: 5px;
+  padding: 3px;
+}
+
+.link-to-ham:hover {
+  box-shadow: 3px 3px 4px 4px grey;
 }
