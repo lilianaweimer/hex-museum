@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Error = (props) => {
   return (
-    <section className='error'>
+    <section className='no-faves'>
       <p className='error'>{props.error ? props.error : 'something went wrong'}</p>
       <Link to='/' className='home-nav'>home</Link>
     </section>

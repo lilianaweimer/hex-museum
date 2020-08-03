@@ -1,11 +1,14 @@
 import React from 'react';
 import './Colors.css';
+import Error from '../Error/Error';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Colors = (props) => {
   if (props.colors) {
+    // console.log(props.colors);
+    // console.log('yes');
     return (
       <div style={{ textAlign: 'center' }}>
         <Link to='/' className='home-nav'>home</Link>
@@ -30,7 +33,7 @@ const Colors = (props) => {
       </div>
     )
   } else {
-    return <Redirect to='/'/>
+    return <Error />
   }
 }
 

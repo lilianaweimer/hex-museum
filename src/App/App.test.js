@@ -12,9 +12,7 @@ jest.mock('../apiCalls');
 
 describe('App', () => {
 
-  fetchTodaysColor.mockResolvedValue({color: 'mock color'});
-
-  getAllColors.mockResolvedValue({records: [
+  const mockColors = {records: [
     {
       name: 'color one',
       hex: '#123456',
@@ -30,9 +28,9 @@ describe('App', () => {
       hex: '#w38i7d',
       id: 674843239
     }
-  ]});
+  ]};
 
-  getArt.mockResolvedValue({ records: [
+  const mockArt = { records: [
     {
       objectid: 12345,
       primaryimageurl: 'url1.jpg',
@@ -67,7 +65,7 @@ describe('App', () => {
         baseimageurl: 'url2.jpg'
       }]
     }
-  ]});
+  ]};
 
   Object.defineProperty(window, 'localStorage', {
     value: {
@@ -78,6 +76,7 @@ describe('App', () => {
   });
 
   it('should call localStorage getItem to retrieve favorites on render', () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
     render(
       <MemoryRouter>
         <App />
@@ -89,6 +88,7 @@ describe('App', () => {
   });
 
   it('should render the loading component before componentDidMount fetch', () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
     const { getByAltText } = render(
       <MemoryRouter>
         <App />
@@ -99,6 +99,7 @@ describe('App', () => {
   });
   
   it('should render correctly after componentDidMount fetch', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
     const { getByText } = render(
       <MemoryRouter>
         <App />
@@ -112,6 +113,8 @@ describe('App', () => {
   }); 
 
   it('should be able to go to today\'s gallery', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getArt.mockResolvedValueOnce(mockArt);
     const { getByText } = render(
       <MemoryRouter>
         <App />
@@ -127,6 +130,8 @@ describe('App', () => {
   });
 
   it('should be able to go to a specific art page from today\'s gallery', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getArt.mockResolvedValueOnce(mockArt);
     const { getByText, getByTestId } = render(
       <MemoryRouter>
         <App />
@@ -140,20 +145,25 @@ describe('App', () => {
   }); 
 
   it('should be able to go to the all colors page', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getAllColors.mockResolvedValueOnce(mockColors);
     const { getByText } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
     );
-    
+
     fireEvent.click(await waitFor(() => getByText('pick another color')));
-    
+
     expect(await waitFor(() => getByText('color one'))).toBeInTheDocument();
     expect(await waitFor(() => getByText('color two'))).toBeInTheDocument();
     expect(await waitFor(() => getByText('color three'))).toBeInTheDocument();
   });
 
   it('should be able to go to a piece\'s info page from the all colors page', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getAllColors.mockResolvedValueOnce(mockColors);
+    getArt.mockResolvedValueOnce(mockArt);
     const { getByText, getByTestId } = render(
       <MemoryRouter>
         <App />
@@ -171,6 +181,7 @@ describe('App', () => {
   });
 
   it('should be able to go to the favorites page', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
     const { getByText } = render(
       <MemoryRouter>
         <App />
@@ -183,6 +194,8 @@ describe('App', () => {
   });
 
   it('should call localStorage setItem when favorite or unfavorite is clicked', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getArt.mockResolvedValueOnce(mockArt);
     const { getByText, getByTestId } = render(
       <MemoryRouter>
         <App />
@@ -196,6 +209,8 @@ describe('App', () => {
   });
 
   it('should be able to go to a piece\'s page from favorites', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getArt.mockResolvedValueOnce(mockArt);
     const { getByText, getByTestId } = render(
       <MemoryRouter>
         <App />
@@ -215,22 +230,25 @@ describe('App', () => {
 
   });
 
-  it('should go to error page if no color comes back from the api', async () => {
-    fetchTodaysColor.mockResolvedValueOnce(null);
+  it('should go to error page if no colors come back from the api and user tries to view colors', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getAllColors.mockRejectedValueOnce({message: 'uh oh!!!!!!'});
     const { getByText } = render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
     );
 
-    expect(await waitFor(() => {getByText('something went wrong')}))
+    fireEvent.click(await waitFor(() => getByText('pick another color')));
+
+    expect(await waitFor(() => getByText('uh oh!!!!!!'))).toBeInTheDocument();
   });
 
 });
 
 describe('Loading', () => {
 
-  it('should render', () => {
+  it.skip('should render', () => {
     const { getByAltText } = render(
       <MemoryRouter>
         <Loading />
@@ -255,11 +273,12 @@ describe('Error', () => {
   }); 
 
   it('should render without props', () => {
-    const { getByText } = render(
+    const { getByText, debug } = render(
       <MemoryRouter>
         <Error error={null}/>
       </MemoryRouter>
     );
+    // debug()
 
     expect(getByText('something went wrong')).toBeInTheDocument();
   }); 

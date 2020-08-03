@@ -120,7 +120,12 @@ class App extends React.Component {
       art: { records: [...this.state.art.records, ...data.records]},
       isLoading: false,
     }))
-    .catch(err => console.error(err))
+    .catch(err => {console.error(err)
+      this.setState({
+        isLoading: false,
+        error: err
+      })
+    })
   }
 
   setCurrentColor = (color) => {
@@ -136,7 +141,11 @@ class App extends React.Component {
         isLoading: false,
         colors: data
       }))
-      .catch(err => console.error(err))
+      .catch(err => {console.error(err)
+      this.setState({ 
+        isLoading: false,
+        error: err})
+      })
   }
 
   toggleFavorite = (piece, isFavorite) => {
