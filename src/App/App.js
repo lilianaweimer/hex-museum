@@ -10,8 +10,6 @@ import Favorites from '../Favorites/Favorites';
 import Loading from './Loading';
 import Footer from '../Footer/Footer';
 
-import mockFavorites from '../MockAPIData/mockFavorites';
-
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
 import { Switch, Route, Redirect, Link } from 'react-router-dom';

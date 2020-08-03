@@ -5,7 +5,7 @@ import Error from '../Error/Error';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, fireEvent, waitFor, getByTestId } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 jest.mock('../apiCalls');
@@ -209,7 +209,7 @@ describe('App', () => {
 
     expect(getByText('Leo D.V.')).toBeInTheDocument(); 
 
-    fireEvent.click(getByTestId("1082297"));
+    fireEvent.click(getByTestId('1082297'));
     
     expect(getByText('description')).toBeInTheDocument();
 
