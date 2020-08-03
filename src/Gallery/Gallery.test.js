@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-jest.mock('../apiCalls');
 
 describe('Gallery', () => {
 
@@ -54,7 +53,6 @@ describe('Gallery', () => {
         <Gallery 
           art={mockArt}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={jest.fn()}
         />
@@ -74,7 +72,6 @@ describe('Gallery', () => {
         <Gallery 
           art={null}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={jest.fn()}
         />
@@ -95,7 +92,6 @@ describe('Gallery', () => {
         <Gallery 
           art={mockArt}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={mockToggleFavorite}
         />
@@ -115,7 +111,6 @@ describe('Gallery', () => {
         <Gallery 
           art={mockArt}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={jest.fn()}
           getMoreArt={mockMoreArt}
@@ -135,7 +130,6 @@ describe('Gallery', () => {
         <Gallery 
           art={mockArt}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={jest.fn()}
           getMoreArt={jest.fn()}

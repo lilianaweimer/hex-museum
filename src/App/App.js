@@ -56,7 +56,6 @@ class App extends React.Component {
       <Gallery 
           art={this.state.art} 
           currentColor={this.state.currentColor} 
-          getNewPiece={this.getNewPiece}
           favorites={this.state.favorites}
           toggleFavorite={this.toggleFavorite}
           isLoading={this.state.isLoading}

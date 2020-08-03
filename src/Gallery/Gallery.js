@@ -55,7 +55,6 @@ export default Gallery;
 Gallery.propTypes = {
   art: PropTypes.object,
   currentColor: PropTypes.string,
-  getNewPiece: PropTypes.func,
   favorites: PropTypes.array,
   toggleFavorite: PropTypes.func,
   isLoading: PropTypes.bool,
