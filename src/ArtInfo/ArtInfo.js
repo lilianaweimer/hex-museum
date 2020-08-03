@@ -4,11 +4,10 @@ import './ArtInfo.css';
 
 import PropTypes from 'prop-types';
 
-
 const ArtInfo = (props) => {
   if (props.info) {
     let info = props.info;
-    let isFavorite = props.favorites.find(favorite => favorite.objectid === info.objectid) ? true : false ;
+    let isFavorite = props.favorites.find(favorite => favorite.objectid === info.objectid) ? true : false;
     return (
       <div style={{ backgroundColor: props.color }}>
         <section className='piece'>
@@ -47,7 +46,6 @@ const ArtInfo = (props) => {
                     alt={`${info.title}`}
                   />
         }) : null}
-        
       </section>
       <a className='link-to-ham' 
         href={info.url} 
@@ -66,7 +64,7 @@ const ArtInfo = (props) => {
 export default ArtInfo;
 
 ArtInfo.propTypes = {
-  art: PropTypes.object,
+  info: PropTypes.object,
   color: PropTypes.string,
   favorites: PropTypes.array,
   toggleFavorites: PropTypes.func,
