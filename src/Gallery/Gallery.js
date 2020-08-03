@@ -10,7 +10,7 @@ const Gallery = (props) => {
     return <Loading />
   } else if (props.art && !props.isLoading) {
     const art = props.art.records.map(piece => {
-      let isFavorite = props.favorites.find(favorite => favorite.objectid === piece.objectid) ? true : false ;
+      let isFavorite = props.favorites.find(favorite => favorite.objectid === piece.objectid) ? true : false;
       return (
           <article className='art-icle' key={piece.objectid}>
           <img 
