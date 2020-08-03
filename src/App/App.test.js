@@ -244,11 +244,25 @@ describe('App', () => {
     expect(await waitFor(() => getByText('uh oh!!!!!!'))).toBeInTheDocument();
   });
 
+  it('should go to error page if no art comes back from the api and user tries to view art', async () => {
+    fetchTodaysColor.mockResolvedValueOnce({color: 'mock color'});
+    getArt.mockRejectedValueOnce({message: 'uh oh!!!!!!'});
+    const { getByText } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(await waitFor(() => getByText('view today\'s gallery')));
+
+    expect(await waitFor(() => getByText('uh oh!!!!!!'))).toBeInTheDocument();
+  });
+
 });
 
 describe('Loading', () => {
 
-  it.skip('should render', () => {
+  it('should render', () => {
     const { getByAltText } = render(
       <MemoryRouter>
         <Loading />

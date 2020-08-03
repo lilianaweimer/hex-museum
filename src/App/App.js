@@ -110,7 +110,12 @@ class App extends React.Component {
       art: data,
       isLoading: false,
     }))
-    .catch(err => console.error(err))
+    .catch(err => {console.error(err)
+      this.setState({
+        isLoading: false,
+        error: err
+      })
+    })
   }
 
   getMoreArt = (color) => {
