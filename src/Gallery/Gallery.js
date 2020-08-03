@@ -6,7 +6,6 @@ import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Gallery = (props) => {
-  console.log(props.favorites);
   if (props.isLoading) {
     return <Loading />
   } else if (props.art && !props.isLoading) {

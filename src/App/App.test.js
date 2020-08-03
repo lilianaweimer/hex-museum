@@ -69,6 +69,25 @@ describe('App', () => {
     }
   ]});
 
+  Object.defineProperty(window, 'localStorage', {
+    value: {
+      getItem: jest.fn(() => null),
+      setItem: jest.fn(() => null)
+    },
+    writable: true
+  });
+
+  it('should call localStorage getItem to retrieve favorites on render', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(localStorage.getItem).toBeCalledTimes(1);
+    expect(localStorage.getItem).toBeCalledWith('favorites'); 
+  });
+
   it('should render the loading component before componentDidMount fetch', () => {
     const { getByAltText } = render(
       <MemoryRouter>
@@ -76,9 +95,7 @@ describe('App', () => {
       </MemoryRouter>
     );
 
-    const loading = getByAltText('loading');
-
-    expect(loading).toBeInTheDocument();
+    expect(getByAltText('loading')).toBeInTheDocument();
   });
   
   it('should render correctly after componentDidMount fetch', async () => {
@@ -88,15 +105,10 @@ describe('App', () => {
       </MemoryRouter>
     );
 
-    const todaysColor = await waitFor(() => getByText('today\'s color: mock color'));
-    const todaysGallery = await waitFor(() => getByText('view today\'s gallery'));
-    const otherColors = await waitFor(() => getByText('pick another color'));
-    const viewFavorites = await waitFor(() => getByText('view my gallery'));
-
-    expect(todaysColor).toBeInTheDocument();
-    expect(todaysGallery).toBeInTheDocument();
-    expect(otherColors).toBeInTheDocument();
-    expect(viewFavorites).toBeInTheDocument();
+    expect(await waitFor(() => getByText('today\'s color: mock color'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('view today\'s gallery'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('pick another color'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('view my gallery'))).toBeInTheDocument();
   }); 
 
   it('should be able to go to today\'s gallery', async () => {
@@ -105,21 +117,13 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-
-    const todaysGallery = await waitFor(() => getByText('view today\'s gallery'));
     
-    fireEvent.click(todaysGallery);
+    fireEvent.click(await waitFor(() => getByText('view today\'s gallery')));
     
-    
-    const pieceOne = await waitFor(() => getByText('piece1'))
-    const artistOne = await waitFor(() => getByText('artist1'))
-    const pieceTwo = await waitFor(() => getByText('piece2'))
-    const artistTwo = await waitFor(() => getByText('artist2'));
-    
-    expect(pieceOne).toBeInTheDocument();
-    expect(artistOne).toBeInTheDocument();
-    expect(pieceTwo).toBeInTheDocument();
-    expect(artistTwo).toBeInTheDocument();
+    expect(await waitFor(() => getByText('piece1'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('artist1'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('piece2'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('artist2'))).toBeInTheDocument();
   });
 
   it('should be able to go to a specific art page from today\'s gallery', async () => {
@@ -129,17 +133,10 @@ describe('App', () => {
       </MemoryRouter>
     );
 
-    const todaysGallery = await waitFor(() => getByText('view today\'s gallery'));
-    
-    fireEvent.click(todaysGallery);
-    
-    const aboutButton = await waitFor(() => getByTestId('2'));
+    fireEvent.click(await waitFor(() => getByText('view today\'s gallery')));
+    fireEvent.click(await waitFor(() => getByTestId('2')));
 
-    fireEvent.click(aboutButton);
-    
-    const description = await waitFor(() => getByText('description'));
-
-    expect(description).toBeInTheDocument();
+    expect(await waitFor(() => getByText('description'))).toBeInTheDocument();
   }); 
 
   it('should be able to go to the all colors page', async () => {
@@ -148,18 +145,12 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-
-    const otherColors = await waitFor(() => getByText('pick another color'));
     
-    fireEvent.click(otherColors);
-
-    const colorOne = await waitFor(() => getByText('color one'))
-    const colorTwo = await waitFor(() => getByText('color two'))
-    const colorThree = await waitFor(() => getByText('color three'))
+    fireEvent.click(await waitFor(() => getByText('pick another color')));
     
-    expect(colorOne).toBeInTheDocument();
-    expect(colorTwo).toBeInTheDocument();
-    expect(colorThree).toBeInTheDocument();
+    expect(await waitFor(() => getByText('color one'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('color two'))).toBeInTheDocument();
+    expect(await waitFor(() => getByText('color three'))).toBeInTheDocument();
   });
 
   it('should be able to go to a piece\'s info page from the all colors page', async () => {
@@ -170,7 +161,6 @@ describe('App', () => {
     );
     
     fireEvent.click(await waitFor(() => getByText('pick another color')));
-    
     fireEvent.click(await waitFor(() => getByText('color one')));
 
     expect(await waitFor(() => getByText('piece1'))).toBeInTheDocument();
@@ -187,11 +177,22 @@ describe('App', () => {
       </MemoryRouter>
     );
 
-    const favorites = await waitFor(() => getByText('view my gallery'));
-    
-    fireEvent.click(favorites);
+    fireEvent.click(await waitFor(() => getByText('view my gallery')));
     
     expect(getByText('no favorites yet!')).toBeInTheDocument();
+  });
+
+  it('should call localStorage setItem when favorite or unfavorite is clicked', async () => {
+    const { getByText, getByTestId } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    
+    fireEvent.click(await waitFor(() => getByText('view today\'s gallery')));
+    fireEvent.click(await waitFor(() => getByTestId('fave2')));
+
+    expect(localStorage.setItem).toBeCalledTimes(1);
   });
 
   it('should be able to go to a piece\'s page from favorites', async () => {

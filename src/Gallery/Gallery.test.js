@@ -65,6 +65,7 @@ describe('Gallery', () => {
     expect(getByText('artist1')).toBeInTheDocument();
     expect(getByText('piece2')).toBeInTheDocument();
     expect(getByText('artist2')).toBeInTheDocument();
+    expect(getByText('welcome to the color gallery')).toBeInTheDocument();
   });
 
   it('should not render if there is no art', () => {
@@ -84,6 +85,7 @@ describe('Gallery', () => {
     expect(queryByText('artist1')).not.toBeInTheDocument();
     expect(queryByText('piece2')).not.toBeInTheDocument();
     expect(queryByText('artist2')).not.toBeInTheDocument();
+    expect(queryByText('welcome to the color gallery')).not.toBeInTheDocument();
   });
 
   it('should be able to favorite a piece from gallery', () =>{
