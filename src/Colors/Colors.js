@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const Colors = (props) => {
   if (props.colors) {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: 'center' }}>
         <Link to='/' className='home-nav'>home</Link>
         <section className='colors'>
           {props.colors.sort((a, b) => b.hex - a.hex).map(color => {
