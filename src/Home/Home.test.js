@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-jest.mock('../apiCalls');
 
 describe('Home', () => {
 
@@ -24,15 +23,10 @@ describe('Home', () => {
       </MemoryRouter>
     );
 
-    const todaysColor = getByText('today\'s color: mock color');
-    const todaysGallery = getByText('view today\'s gallery');
-    const otherColors = getByText('pick another color');
-    const viewFavorites = getByText('view my gallery');
-
-    expect(todaysColor).toBeInTheDocument();
-    expect(todaysGallery).toBeInTheDocument();
-    expect(otherColors).toBeInTheDocument();
-    expect(viewFavorites).toBeInTheDocument();
+    expect(getByText('today\'s color: mock color')).toBeInTheDocument();
+    expect(getByText('view today\'s gallery')).toBeInTheDocument();
+    expect(getByText('pick another color')).toBeInTheDocument();
+    expect(getByText('view my gallery')).toBeInTheDocument();
   });
 
   it('should not render if there is no color prop', () =>{
@@ -69,9 +63,7 @@ describe('Home', () => {
       </MemoryRouter>
     );
 
-    const todaysGallery = getByText('view today\'s gallery');
-
-    fireEvent.click(todaysGallery);
+    fireEvent.click(getByText('view today\'s gallery'));
 
     expect(mockFetchArt).toHaveBeenCalledTimes(1);
     expect(mockFetchArt).toHaveBeenCalledWith({color: 'mock color', id: 123});
@@ -93,9 +85,7 @@ describe('Home', () => {
       </MemoryRouter>
     );
 
-    const allColors = getByText('pick another color');
-
-    fireEvent.click(allColors);
+    fireEvent.click(getByText('pick another color'));
 
     expect(mockFetchAllColors).toHaveBeenCalledTimes(1);
   });
