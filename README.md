@@ -18,12 +18,15 @@ https://docs.google.com/document/d/1Ve25LhrlYxBDOE19E_oWNYbXL6NshcH70mV6A9lUlOw/
 
 ## In Action
 Viewing today's gallery:
+
 <img src='src/Images/binary-today.gif' alt='a user views todays gallery and favorites a few pieces' width='75%'>
 
 Viewing another color's gallery:
+
 <img src='src/Images/binary-othercolor.gif' alt='a user views todays gallery and favorites a few pieces' width='75%'>
 
 Viewing favorites and details:
+
 <img src='src/Images/binary-favorites.gif' alt='a user views todays gallery and favorites a few pieces' width='75%'>
 
 
