@@ -29,5 +29,13 @@ Viewing favorites and details:
 
 <img src='src/Images/binary-favorites.gif' alt='a user views todays gallery and favorites a few pieces' width='75%'>
 
+## To View
+*REQUIRES HARVARD ART MUSEUM API KEY!*
+- Clone down the repository
+- Run `npm install` in your terminal
+- Run `npm start` in your terminal
+- View at http://localhost:3000 in your browser
+- Type `^c + enter` (`control + c` -- on Mac) in your terminal to terminate local server when done
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
