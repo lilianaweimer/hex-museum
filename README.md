@@ -31,7 +31,12 @@ Viewing favorites and details:
 
 ## To View
 *REQUIRES HARVARD ART MUSEUM API KEY!*
+
 - Clone down the repository
+- Once you have a key, include in in a file (`apikey.js`) in your `src` directory
+- Include the following in the file:
+`const apikey = 'YOUR_KEY';
+export default apikey;`
 - Run `npm install` in your terminal
 - Run `npm start` in your terminal
 - View at http://localhost:3000 in your browser
