@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 
 const Colors = (props) => {
   if (props.colors) {
-    // console.log(props.colors);
-    // console.log('yes');
     return (
       <div style={{ textAlign: 'center' }}>
         <Link to='/' className='home-nav'>home</Link>

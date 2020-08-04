@@ -217,7 +217,6 @@ class App extends React.Component {
           <Route path='/piece/:id' render={(routeProps) => this.loadArtInfo(routeProps)}/>
           <Route path='/error'>
             <Error />
-            <Footer />
           </Route>
           <Route path='/favorites'>
             <Favorites 

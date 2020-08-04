@@ -287,12 +287,11 @@ describe('Error', () => {
   }); 
 
   it('should render without props', () => {
-    const { getByText, debug } = render(
+    const { getByText } = render(
       <MemoryRouter>
         <Error error={null}/>
       </MemoryRouter>
     );
-    // debug()
 
     expect(getByText('something went wrong')).toBeInTheDocument();
   }); 

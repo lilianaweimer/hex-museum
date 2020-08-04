@@ -40,7 +40,7 @@ describe('Colors', () => {
   });
 
   it('should not render if there are no colors', () => {
-    const { queryByText } = render(
+    const { queryByText, getByText } = render(
       <MemoryRouter>
         <Colors 
           colors={null}
@@ -49,7 +49,8 @@ describe('Colors', () => {
       </MemoryRouter>
     );
 
-    expect(queryByText('home')).not.toBeInTheDocument();
+      expect(getByText('something went wrong')).toBeInTheDocument();
+
     expect(queryByText('color1')).not.toBeInTheDocument();
     expect(queryByText('color2')).not.toBeInTheDocument();
     expect(queryByText('12345')).not.toBeInTheDocument();
