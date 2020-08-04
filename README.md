@@ -42,5 +42,13 @@ export default apikey;`
 - View at http://localhost:3000 in your browser
 - Type `^c + enter` (`control + c` -- on Mac) in your terminal to terminate local server when done
 
+## Future Iterations
+- Come up with a name!
+- Deploy
+- Smoother loading of `Gallery` pages
+- Better error handling for broken/lost images
+- Better handling of duplicate pieces from API
+- Figure out the `error: undefined` issue
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
