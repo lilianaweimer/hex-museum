@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-jest.mock('../apiCalls');
 
 describe('ArtInfo', () => {
 

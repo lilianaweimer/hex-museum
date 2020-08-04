@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-jest.mock('../apiCalls');
 
 describe('Gallery', () => {
 
@@ -54,7 +53,6 @@ describe('Gallery', () => {
         <Gallery 
           art={mockArt}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={jest.fn()}
         />
@@ -65,6 +63,7 @@ describe('Gallery', () => {
     expect(getByText('artist1')).toBeInTheDocument();
     expect(getByText('piece2')).toBeInTheDocument();
     expect(getByText('artist2')).toBeInTheDocument();
+    expect(getByText('welcome to the color gallery')).toBeInTheDocument();
   });
 
   it('should not render if there is no art', () => {
@@ -73,7 +72,6 @@ describe('Gallery', () => {
         <Gallery 
           art={null}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={jest.fn()}
         />
@@ -84,6 +82,7 @@ describe('Gallery', () => {
     expect(queryByText('artist1')).not.toBeInTheDocument();
     expect(queryByText('piece2')).not.toBeInTheDocument();
     expect(queryByText('artist2')).not.toBeInTheDocument();
+    expect(queryByText('welcome to the color gallery')).not.toBeInTheDocument();
   });
 
   it('should be able to favorite a piece from gallery', () =>{
@@ -93,7 +92,6 @@ describe('Gallery', () => {
         <Gallery 
           art={mockArt}
           currentColor={'color'}
-          getNewPiece={jest.fn()}
           favorites={mockFavorites}
           toggleFavorite={mockToggleFavorite}
         />
@@ -105,5 +103,43 @@ describe('Gallery', () => {
     expect(mockToggleFavorite).toBeCalledTimes(1);
     expect(mockToggleFavorite).toBeCalledWith(mockArt.records[1], false)
   });
+
+  it('should fire a function if \'more art\' is clicked', () => {
+    const mockMoreArt = jest.fn();
+    const { getByText } = render(
+      <MemoryRouter>
+        <Gallery 
+          art={mockArt}
+          currentColor={'color'}
+          favorites={mockFavorites}
+          toggleFavorite={jest.fn()}
+          getMoreArt={mockMoreArt}
+        />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(getByText('more art!'));
+
+    expect(mockMoreArt).toBeCalledTimes(1);
+    expect(mockMoreArt).toBeCalledWith('/');
+  });
+
+  it('should load Loading if loading', () => {
+    const { getByAltText } = render(
+      <MemoryRouter>
+        <Gallery 
+          art={mockArt}
+          currentColor={'color'}
+          favorites={mockFavorites}
+          toggleFavorite={jest.fn()}
+          getMoreArt={jest.fn()}
+          isLoading={true}
+        />
+      </MemoryRouter>
+    );
+
+    expect(getByAltText('loading')).toBeInTheDocument();
+  });
+
 
 });

@@ -1,13 +1,14 @@
 import React from 'react';
 import './Colors.css';
+import Error from '../Error/Error';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Colors = (props) => {
   if (props.colors) {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: 'center' }}>
         <Link to='/' className='home-nav'>home</Link>
         <section className='colors'>
           {props.colors.sort((a, b) => b.hex - a.hex).map(color => {
@@ -30,7 +31,7 @@ const Colors = (props) => {
       </div>
     )
   } else {
-    return <Redirect to='/'/>
+    return <Error />
   }
 }
 

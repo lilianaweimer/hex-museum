@@ -1,5 +1,4 @@
 import React from 'react';
-import './Trend.css';
 import PropTypes from 'prop-types';
 
 import ColorTrend from './ColorTrend';

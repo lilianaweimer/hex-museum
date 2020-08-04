@@ -21,28 +21,29 @@ const Favorites = (props) => {
         </section>
         <section className='gallery faves'>
           {props.favorites.map(piece => {
-        return (
-            <article className='art-icle' key={piece.objectid}>
-            <img 
-              className='art-img' 
-              src={piece.primaryimageurl ? piece.primaryimageurl : require('../Gallery/lostimg.jpg')} 
-              alt={piece.title}
-            />
-            <div className='gallery-didactic'>
-              <p className='gallery-title gallery-info'>{piece.title ? piece.title : 'no title'}</p>
-              <p className='gallery-info'>{piece.people ? piece.people[0].displayname : 'unknown artist'}</p>
-              <button 
-                className='home-nav'
-                data-testid={props.favorites.indexOf(piece)} 
-                onClick={() => props.toggleFavorite(piece, props.favorites.includes(piece))}>
-                  {props.favorites.includes(piece) ? 'unfavorite' : 'favorite'}
-              </button>
-              <Link to={`/piece/${piece.objectid}`}>
-                <button className='home-nav' data-testid={piece.objectid}>about</button>
-              </Link>
-            </div>
-          </article>
-        )
+            let isFavorite = props.favorites.find(favorite => favorite.objectid === piece.objectid) ? true : false ;
+            return (
+                <article className='art-icle' key={piece.objectid}>
+                <img 
+                  className='art-img' 
+                  src={piece.primaryimageurl ? piece.primaryimageurl : require('../Images/lostimg.jpg')} 
+                  alt={piece.title}
+                />
+                <div className='gallery-didactic'>
+                  <p className='gallery-title gallery-info'>{piece.title ? piece.title : 'no title'}</p>
+                  <p className='gallery-info'>{piece.people ? piece.people[0].displayname : 'unknown artist'}</p>
+                  <button 
+                    className='home-nav'
+                    data-testid={props.favorites.indexOf(piece)} 
+                    onClick={() => props.toggleFavorite(piece, isFavorite)}>
+                      {isFavorite ? 'unfavorite' : 'favorite'}
+                  </button>
+                  <Link to={`/piece/${piece.objectid}`}>
+                    <button className='home-nav' data-testid={piece.objectid}>about</button>
+                  </Link>
+                </div>
+              </article>
+            )
     })}
       </section>
       </div>

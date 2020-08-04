@@ -7,8 +7,8 @@ import Gallery from '../Gallery/Gallery';
 import Colors from '../Colors/Colors';
 import ArtInfo from '../ArtInfo/ArtInfo';
 import Favorites from '../Favorites/Favorites';
-
-import mockFavorites from '../MockAPIData/mockFavorites';
+import Loading from './Loading';
+import Footer from '../Footer/Footer';
 
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
@@ -30,46 +30,72 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetchTodaysColor(this.getDayOfYear(), apikey)
-    .then(
-      (data) => this.setState({
-      todaysColor: data,
-      isLoading: false
-    },
-    (error) => {
-      console.error(error)
-      this.setState({
-        isLoading: false,
-        error: error
-      })
+    this.retrieveFavoritesFromStorage()
+    if (!Object.keys(this.state.todaysColor).length) {
+      fetchTodaysColor(this.getDayOfYear())
+      .then(
+        (data) => this.setState({
+        todaysColor: data,
+        isLoading: false
+      },
+      (error) => {
+        this.setState({
+          isLoading: false,
+          error: error
+        })
+      }
+      ))
     }
-    ))
   }
 
   loadGallery = (event) => {
-    return Object.keys(this.state.art).length 
-      ? <Gallery 
+    if (!this.state.isLoading) {
+      return Object.keys(this.state.art).length 
+      ?
+      <>
+      <Gallery 
           art={this.state.art} 
           currentColor={this.state.currentColor} 
-          getNewPiece={this.getNewPiece}
           favorites={this.state.favorites}
           toggleFavorite={this.toggleFavorite}
           isLoading={this.state.isLoading}
           getMoreArt={this.getMoreArt} 
-        /> 
+        />
+        <Footer /> 
+      </> 
       : <Redirect to='/'/>;
+    } else {
+      return <Loading />
+    }
   }
 
   loadArtInfo = (routeProps) => {
-    if (Object.keys(this.state.art.records).length) {
+    if (this.state.art.records && Object.keys(this.state.art.records).length) {
       let artId = Number(routeProps.match.params.id);
       let foundArt = this.state.art.records.find(piece => piece.objectid === artId);
       return (foundArt ? 
-        <ArtInfo 
-          info={foundArt} 
-          color={this.state.currentColor}
-          favorites={this.state.favorites}
-          toggleFavorite={this.toggleFavorite}/> : 
+        <>
+          <ArtInfo 
+            info={foundArt} 
+            color={this.state.currentColor}
+            favorites={this.state.favorites}
+            toggleFavorite={this.toggleFavorite}/>
+          <Footer />
+        </> : 
+        <Error />
+      );
+    } else if (this.state.favorites.length) {
+      let artId = Number(routeProps.match.params.id);
+      let foundArt = this.state.favorites.find(piece => piece.objectid === artId);
+      return (foundArt ? 
+        <>
+          <ArtInfo 
+            info={foundArt} 
+            color={this.state.currentColor}
+            favorites={this.state.favorites}
+            toggleFavorite={this.toggleFavorite}/>
+          <Footer />
+        </> : 
         <Error />
       );
     } else {
@@ -84,7 +110,12 @@ class App extends React.Component {
       art: data,
       isLoading: false,
     }))
-    .catch(err => console.error(err))
+    .catch(err => {console.error(err)
+      this.setState({
+        isLoading: false,
+        error: err
+      })
+    })
   }
 
   getMoreArt = (color) => {
@@ -94,7 +125,12 @@ class App extends React.Component {
       art: { records: [...this.state.art.records, ...data.records]},
       isLoading: false,
     }))
-    .catch(err => console.error(err))
+    .catch(err => {console.error(err)
+      this.setState({
+        isLoading: false,
+        error: err
+      })
+    })
   }
 
   setCurrentColor = (color) => {
@@ -110,14 +146,35 @@ class App extends React.Component {
         isLoading: false,
         colors: data
       }))
-      .catch(err => console.error(err))
+      .catch(err => {console.error(err)
+      this.setState({ 
+        isLoading: false,
+        error: err})
+      })
   }
 
   toggleFavorite = (piece, isFavorite) => {
-    isFavorite ? 
-    this.setState({ favorites: this.state.favorites.filter(favorite => {
-      return piece.objectid !== favorite.objectid}) }) :
-    this.setState({ favorites: [...this.state.favorites, piece]})
+    if (isFavorite) {
+      let newFavorites = this.state.favorites.filter(favorite => {
+        return piece.objectid !== favorite.objectid})
+      this.setState({ favorites: newFavorites })
+      this.saveFavoritesToStorage(newFavorites)
+    } else {
+      let newFavorites = [...this.state.favorites, piece]
+      this.setState({ favorites: newFavorites })
+      this.saveFavoritesToStorage(newFavorites)
+    }
+  }
+
+  saveFavoritesToStorage = (favorites) => {
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+  }
+
+  retrieveFavoritesFromStorage = () => {
+    if (localStorage.getItem('favorites') !== null) {
+      let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+      this.setState({ favorites: [...storedFavorites] })
+    }
   }
 
   getDayOfYear = () => {
@@ -132,12 +189,10 @@ class App extends React.Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <p className='loading'>
-          <img src={require('./movingblocksloading.gif')} alt='loading'/>
-        </p>
+        <Loading />
       )
     } else if (this.state.error) {
-      return <Error error={this.state.error}/>
+      return <Error error={this.state.error.message}/>
     } else if (!this.state.isLoading && !this.state.error) {
       return (
         <Switch>
@@ -148,6 +203,7 @@ class App extends React.Component {
               fetchAllColors={this.fetchAllColors}
               setCurrentColor={this.setCurrentColor}
             />
+            <Footer />
           </Route>
           <Route path='/gallery/:id' render={(event) => this.loadGallery(event)}/>
           <Route exact path='/colors'>
@@ -156,6 +212,7 @@ class App extends React.Component {
               fetchArt={this.fetchArt}
               setCurrentColor={this.setCurrentColor}
             />
+            <Footer />
           </Route>
           <Route path='/piece/:id' render={(routeProps) => this.loadArtInfo(routeProps)}/>
           <Route path='/error'>
@@ -165,7 +222,7 @@ class App extends React.Component {
             <Favorites 
               favorites={this.state.favorites}
               toggleFavorite={this.toggleFavorite}
-              color={this.state.todaysColor.color}
+              color={this.state.todaysColor ? this.state.todaysColor.color : '#ffffff'}
             />
           </Route>
           <Route path='/:undefined'>
