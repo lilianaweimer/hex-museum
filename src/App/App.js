@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import apikey from '../apikey';
+// import apikey from '../apikey';
 import Home from '../Home/Home';
 import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
@@ -13,6 +13,8 @@ import Footer from '../Footer/Footer';
 import { fetchTodaysColor, getAllColors, getArt } from '../apiCalls';
 
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
+
+let apikey = 'blah';
 
 class App extends React.Component {
   constructor() {
