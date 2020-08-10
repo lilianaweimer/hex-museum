@@ -1,4 +1,5 @@
-import apikey from './apikey';
+// import apikey from './apikey';
+let apikey = 'blah';
 
 export const fetchTodaysColor = (day) => {
   return fetch(`https://api.harvardartmuseums.org/spectrum/${day}?apikey=${apikey}`)
