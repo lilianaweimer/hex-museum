@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import apikey from '../apikey';
+// import apikey from '../apikey';
 import Home from '../Home/Home';
 import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
