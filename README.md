@@ -1,4 +1,4 @@
-# Binary Challenge
+# Hex Museum
 
 ## Abstract
 This is the final solo project from the Turing School of Software & Design's Mod 3 of Front-End Engineering. The assignment was to demonstrate mastery of React, React Router, and asynchronous JavaScript; build an application with a specific audience in mind; and use an external API for data. I chose to use the [Harvard Art Museum API](https://github.com/harvardartmuseums/api-docs) to create an app for an audience of people who are interested in art but are unsure of how to learn more. The application uses the API's spectrum and color endpoints to provide the user with color as their jumping-off point, as well as a favoriting option to create a collection of pieces they like. The favorites are stored in `localStorage` and analyzed for trends (displayed in their favorites).
