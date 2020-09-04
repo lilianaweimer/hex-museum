@@ -1,4 +1,4 @@
-import apikey from './apikey';
+const apikey = process.env.REACT_APP_API_KEY;
 
 export const fetchTodaysColor = (day) => {
   return fetch(`https://api.harvardartmuseums.org/spectrum/${day}?apikey=${apikey}`)
