@@ -26,6 +26,8 @@
   color: black;
   border: 2px solid black;
   margin: 4px;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  height: 1.3em;
 }
 
 .home-btn {
