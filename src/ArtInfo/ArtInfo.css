@@ -39,6 +39,10 @@
   box-shadow: 3px 3px 4px 4px grey;
 }
 
+.extra-images {
+  width: 99vw;
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
 
   .piece-imglarge {
