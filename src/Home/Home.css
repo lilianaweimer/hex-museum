@@ -27,6 +27,7 @@
   border: 2px solid black;
   margin: 4px;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  font-weight: bold;
 }
 
 .home-btn {
@@ -35,6 +36,9 @@
   background-color: white;
   border: 2px solid black;
   margin: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0;
  }
 
 .home-nav:hover {
