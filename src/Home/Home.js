@@ -19,7 +19,7 @@ const Home = (props) => {
               props.setCurrentColor(props.todaysColor.color)
             }} 
             className='home-nav'
-            style={styles}>
+            style={{...styles, height: '1.3em'}}>
               view today's gallery
           </Link>
           <br />
@@ -27,14 +27,14 @@ const Home = (props) => {
             to='/colors' 
             onClick={props.fetchAllColors} 
             className='home-nav'
-            style={styles}>
+            style={{...styles, height: '1.3em'}}>
               pick another color
             </Link>
           <br />
           <Link 
             to='/favorites' 
             className='home-nav'
-            style={styles}>
+            style={{...styles, height: '1.3em'}}>
               view my gallery
           </Link>
         </section>

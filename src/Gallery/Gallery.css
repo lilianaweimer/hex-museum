@@ -3,6 +3,7 @@
 .art-img {
   height: 300px;
   width: auto;
+  max-width: 99vw;
 }
 
 .art-icle {

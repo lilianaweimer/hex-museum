@@ -211,7 +211,7 @@ class App extends React.Component {
               fetchArt={this.fetchArt}
               setCurrentColor={this.setCurrentColor}
             />
-            <Footer />
+            {/* <Footer /> */}
           </Route>
           <Route path='/piece/:id' render={(routeProps) => this.loadArtInfo(routeProps)}/>
           <Route path='/error'>

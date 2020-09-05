@@ -38,14 +38,16 @@ const ArtInfo = (props) => {
               {isFavorite ? 'remove from favorites' : 'add to favorites'}
           </button>
         </article>
-        {info.images ? info.images.map(image => {
-          return <img
-                    key={info.images.indexOf(image)} 
-                    className='piece-img' 
-                    src={image.baseimageurl} 
-                    alt={`${info.title}`}
-                  />
-        }) : null}
+        <div className='extra-images'>
+          {info.images ? info.images.map(image => {
+            return <img
+                      key={info.images.indexOf(image)} 
+                      className='piece-img' 
+                      src={image.baseimageurl} 
+                      alt={`${info.title}`}
+                    />
+          }) : null}
+        </div>
       </section>
       <a className='link-to-ham' 
         href={info.url} 
