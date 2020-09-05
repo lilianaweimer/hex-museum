@@ -26,3 +26,6 @@ yarn-error.log*
 apikey.js
 MockAPIData
 .env
+src/setupProxy.js
+functions
+netlify.toml

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import apikey from '../apikey';
 import Home from '../Home/Home';
 import Error from '../Error/Error';
 import Gallery from '../Gallery/Gallery';
@@ -105,7 +104,7 @@ class App extends React.Component {
 
   fetchArt = (color) => {
     this.setState({ isLoading: true })
-    getArt(color, apikey)
+    getArt(color)
     .then(data => this.setState({
       art: data,
       isLoading: false,
@@ -120,7 +119,7 @@ class App extends React.Component {
 
   getMoreArt = (color) => {
     this.setState({ isLoading: true })
-    getArt(color, apikey)
+    getArt(color)
     .then(data => this.setState({
       art: { records: [...this.state.art.records, ...data.records]},
       isLoading: false,
